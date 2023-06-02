@@ -95,4 +95,19 @@ RSpec.describe "Admin Dashboard Index Page" do
       end
     end
   end
+
+  describe "Admin Dashboard Invoices" do
+    # User Story 22
+    it "displays a section for Incomplete Invoices" do
+
+    end
+
+    it "lists the IDs of invoices that have items that have not yet been shipped" do
+
+    end
+
+    it "displays a link to each invoice's admin show page" do
+      
+    end
+  end
 end
