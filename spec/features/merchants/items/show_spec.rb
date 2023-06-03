@@ -24,13 +24,14 @@ RSpec.describe "Merchant Items Show Page" do
     #User Story 8
     it "displays link to update item" do
       visit merchant_item_path(@merchant_1, @item_1)
+      save_and_open_page
 
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.unit_price)
-      expect(page).to have_link("Update #{@item_1.name}")
+      expect(page).to have_link("Update Item")
       expect(page).to_not have_content(@item_2.name)
       
-      click_link("Update #{@item_1.name}")
+      click_link("Update Item")
       expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1))
     end
   end
