@@ -20,5 +20,13 @@ RSpec.describe "Merchant Items Index Page" do
       expect(page).to have_content(@item_2.name)
       expect(page).to_not have_content(@item_3.name)
     end
+    #User Story 7
+    it "display link to update item, redirects to edit page" do
+    visit merchant_items_path(@merchant_1)
+
+    click_link @item_1.name
+
+    expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
+    end
   end
 end
