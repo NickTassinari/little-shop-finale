@@ -69,7 +69,7 @@ RSpec.describe Merchant, type: :model do
       expect(top_custies).to eq([@customer_6.first_name, @customer_5.first_name, @customer_3.first_name, @customer_4.first_name, @customer_2.first_name])
     end
   end
-
+  
   describe "Class Methods" do
     describe ".enabled_merchants" do
       it "groups merchants based on their enabled status" do
