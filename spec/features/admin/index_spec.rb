@@ -98,16 +98,25 @@ RSpec.describe "Admin Dashboard Index Page" do
 
   describe "Admin Dashboard Invoices" do
     # User Story 22
-    it "displays a section for Incomplete Invoices" do
+    it "displays the IDs of invoices that have items that have not yet been shipped" do
+      visit admin_path
 
-    end
-
-    it "lists the IDs of invoices that have items that have not yet been shipped" do
-
+      within("#incomplete-invoices") do
+        expect(page).to have_content("Incomplete Invoices")
+        expect(page).to have_content("#{@invoice_1.id}")
+        expect(page).to have_content("#{@invoice_1.id}")
+        expect(page).to have_content("#{@invoice_1.id}")
+        expect(page).to_not  have_content("#{@invoice_1.id}")
+        expect(page).to_not  have_content("#{@invoice_1.id}")
+      end
     end
 
     it "displays a link to each invoice's admin show page" do
-      
+      visit admin_path
+
+      within("#incomplete-invoices") do
+
+      end
     end
   end
 end
