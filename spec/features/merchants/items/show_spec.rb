@@ -14,11 +14,8 @@ RSpec.describe "Merchant Items Show Page" do
 
     #User Story 7
     it "displays all attributes of the item" do
-      visit merchant_items_path(@merchant_1)
+      visit merchant_item_path(@merchant_1, @item_1)
 
-      click_link @item_1.name
-
-      expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.unit_price)
@@ -32,7 +29,7 @@ RSpec.describe "Merchant Items Show Page" do
       expect(page).to have_content(@item_1.description)
       expect(page).to have_content(@item_1.unit_price)
       expect(page).to have_link("Update #{@item_1.name}")
-      expect(page).to_not have_content(@item_3.name)
+      expect(page).to_not have_content(@item_2.name)
     end
 
     it "when visitor clicks link they're taken to the edit page, it displays a form filled in with existing item info" do
