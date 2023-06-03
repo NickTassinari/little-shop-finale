@@ -20,7 +20,6 @@ RSpec.describe Merchant, type: :model do
     it { should validate_presence_of :name }
   end
 
-<<<<<<< HEAD
   describe "top_five_customers" do 
     it "#top_five_customers" do 
       @merchant = create(:merchant)
@@ -68,7 +67,9 @@ RSpec.describe Merchant, type: :model do
       top_custies = @merchant.top_five_customers.map { |customer| customer.first_name }
 
       expect(top_custies).to eq([@customer_6.first_name, @customer_5.first_name, @customer_3.first_name, @customer_4.first_name, @customer_2.first_name])
-=======
+    end
+  end
+
   describe "Class Methods" do
     describe ".enabled_merchants" do
       it "groups merchants based on their enabled status" do
@@ -78,7 +79,6 @@ RSpec.describe Merchant, type: :model do
       it "groups merchants based on their disabled status" do
         expect(Merchant.disabled_merchants).to eq([@merchant_1, @merchant_2])
       end
->>>>>>> main
     end
   end
 end
