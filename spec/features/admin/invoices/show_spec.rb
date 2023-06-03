@@ -12,7 +12,7 @@ RSpec.describe "Admin Invoice Show Page" do
     # User Story 33
     it "displays the invoice details" do
       visit admin_invoice_path(@invoice_1)
-      save_and_open_page
+
       within("#invoice-details") do
         expect(page).to have_content("Invoice ##{@invoice_1.id}")
         expect(page).to have_content("Status: #{@invoice_1.status}")
