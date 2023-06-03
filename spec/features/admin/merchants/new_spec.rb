@@ -31,8 +31,7 @@ RSpec.describe "Admin Merchant New Form", type: :feature do
   describe "Sad Path - merchant requires a name to be created" do
     it "will re-render the new merchant form if not filled out correctly" do
       visit new_admin_merchant_path
-      # save_and_open_page
-      # fill_in("Name", with: "")
+      fill_in("Name", with: "")
       click_button("Submit")
 
       expect(current_path).to eq(new_admin_merchant_path)
