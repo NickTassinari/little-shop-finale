@@ -1,6 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Merchant Dashboard Index Page" do 
+RSpec.describe "Merchants Invoices Index" do 
+  # User Story 14 Merchant Invoices Index
   before(:each) do 
     @merchant = create(:merchant)
     
@@ -47,55 +48,22 @@ RSpec.describe "Merchant Dashboard Index Page" do
     @transaction_16 = Transaction.create!(result: "success", invoice: @invoice_6)
   end
 
-  describe "Merchant Dashboard Display" do 
-    #User Story 1
-    it "displays the name of the merchant" do 
-      visit merchant_dashboard_path(@merchant) 
+  it "has all the invoices that include at least one merchant item and lists each invoice id" do 
+    visit merchant_invoices_path(@merchant)
 
-      expect(page).to have_content(@merchant.name)
-    end
+    expect(page).to have_content("Invoice ##{@invoice_1.id}")
+    expect(page).to have_content("Invoice ##{@invoice_2.id}")
+    expect(page).to have_content("Invoice ##{@invoice_3.id}")
+  end
 
-    #user story 2
-    it "displays links to merchant items index and merchant invoices index" do 
-      visit merchant_dashboard_path(@merchant)
+  it "links to merchant invoice show page from each id" do 
+    visit merchant_invoices_path(@merchant)
 
-      expect(page).to have_link("Items Index")
-      expect(page).to have_link("Invoices Index")
-    end
-    # As a merchant,
-    # When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)
-    # Then I see the names of the top 5 customers
-    # who have conducted the largest number of successful transactions with my merchant
-    # And next to each customer name I see the number of successful transactions they have
-    # conducted with my merchant
-    #user story 3
-    it "displays the names of the top 5 customers and number of successful transactions" do 
-      
-      
-      visit merchant_dashboard_path(@merchant)
-      expect(page).to have_content("Top Five Customers")
+    expect(page).to have_link("#{@invoice_1.id}", href: merchant_invoices_path(@merchant, @invoice_1))
+    expect(page).to have_link("#{@invoice_2.id}", href: merchant_invoices_path(@merchant, @invoice_2))
+    expect(page).to have_link("#{@invoice_3.id}", href: merchant_invoices_path(@merchant, @invoice_3))
 
-      within "#top_customers" do 
-
-        expect(page).to have_content(@customer_6.first_name)
-        expect(page).to have_content(@customer_5.first_name)
-        expect(page).to have_content(@customer_3.first_name)
-        expect(page).to have_content(@customer_4.first_name)
-        expect(page).to have_content(@customer_1.first_name)
-        expect(page).to_not have_content(@customer_2.first_name)
-
-        expect(@customer_6.first_name).to appear_before(@customer_5.first_name)
-        expect(@customer_5.first_name).to appear_before(@customer_3.first_name)
-        expect(@customer_3.first_name).to appear_before(@customer_4.first_name)
-        expect(@customer_4.first_name).to appear_before(@customer_1.first_name)
-
-        expect(page).to have_content("#{@customer_6.first_name} #{@customer_6.last_name} - 5 purchases")
-        expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name} - 4 purchases")
-        expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
-        expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name} - 2 purchases")
-        expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name} - 1 purchases")
-      
-      end
-    end
+    click_link("#{@invoice_3.id}")
+    expect(current_path).to eq(merchant_invoices_path(@merchant, @invoice_3))
   end
 end

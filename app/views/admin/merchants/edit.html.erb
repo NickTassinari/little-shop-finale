@@ -1,6 +1,6 @@
 <%= render "/admin/admin_header" %>
 
-<h1>Merchant Edit Page</h1>
+<h1><%= @merchant.name %> Edit Page</h1>
 
 <%= form_with model: [:admin, @merchant], local: true do |form| %>
   <%= form.label :name %>
