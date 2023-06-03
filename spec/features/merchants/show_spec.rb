@@ -75,26 +75,27 @@ RSpec.describe "Merchant Dashboard Index Page" do
       visit merchant_dashboard_path(@merchant)
       expect(page).to have_content("Top Five Customers")
 
-      within "#top_customers"
+      within "#top_customers" do 
 
-      expect(page).to have_content(@customer_6.first_name)
-      expect(page).to have_content(@customer_5.first_name)
-      expect(page).to have_content(@customer_3.first_name)
-      expect(page).to have_content(@customer_4.first_name)
-      expect(page).to have_content(@customer_1.first_name)
-      expect(page).to_not have_content(@customer_2.first_name)
+        expect(page).to have_content(@customer_6.first_name)
+        expect(page).to have_content(@customer_5.first_name)
+        expect(page).to have_content(@customer_3.first_name)
+        expect(page).to have_content(@customer_4.first_name)
+        expect(page).to have_content(@customer_1.first_name)
+        expect(page).to_not have_content(@customer_2.first_name)
 
-      expect(@customer_6.first_name).to appear_before(@customer_5.first_name)
-      expect(@customer_5.first_name).to appear_before(@customer_3.first_name)
-      expect(@customer_3.first_name).to appear_before(@customer_4.first_name)
-      expect(@customer_4.first_name).to appear_before(@customer_1.first_name)
+        expect(@customer_6.first_name).to appear_before(@customer_5.first_name)
+        expect(@customer_5.first_name).to appear_before(@customer_3.first_name)
+        expect(@customer_3.first_name).to appear_before(@customer_4.first_name)
+        expect(@customer_4.first_name).to appear_before(@customer_1.first_name)
 
-      expect(page).to have_content("#{@customer_6.first_name} #{@customer_6.last_name} - 5 purchases")
-      expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name} - 4 purchases")
-      expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
-      expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name} - 2 purchases")
-      expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name} - 1 purchases")
+        expect(page).to have_content("#{@customer_6.first_name} #{@customer_6.last_name} - 5 purchases")
+        expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name} - 4 purchases")
+        expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name} - 3 purchases")
+        expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name} - 2 purchases")
+        expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name} - 1 purchases")
       
+      end
     end
   end
 end
