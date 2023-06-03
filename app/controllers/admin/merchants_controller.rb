@@ -19,8 +19,8 @@ class Admin::MerchantsController < ApplicationController
       flash[:success] = "#{merchant.name} was successfully created"
       redirect_to admin_merchants_path
     else
-      flash[:error] = "Please enter a merchant name"
       render :new
+      flash[:error] = "Please enter a merchant name"
     end
   end
 
