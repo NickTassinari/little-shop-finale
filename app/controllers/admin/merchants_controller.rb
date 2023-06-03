@@ -10,7 +10,7 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def new
-    
+  
   end
 
   def edit
