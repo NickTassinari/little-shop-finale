@@ -8,7 +8,7 @@ RSpec.describe "Admin Merchant New Form", type: :feature do
 
   describe "Creating a new merchant" do
     it "can fill out the new merchant form and submit" do
-      new_admin_merchant_path
+      visit new_admin_merchant_path
 
       expect(page).to have_content("New Merchant Form")
       expect(page).to have_field("Name")
