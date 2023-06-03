@@ -17,12 +17,14 @@ RSpec.describe "Admin Merchant New Form", type: :feature do
       click_button("Submit")
 
       expect(current_path).to eq(admin_merchants_path)
-
-      new_merchant = Merchant.where(name: 'Really Good Stuff')
+      
       within "#disabled_merchants" do
-        expect(page).to have_content("Really Good Stuff")
-        expect(page).to have_link("Enable #{new_merchant.name}")
+        @rgs = Merchant.last
+        
+        expect(page).to have_content("#{@rgs.name}")
+        expect(page).to have_button("Enable #{@rgs.name}")
       end
+      expect(page).to have_content("Really Good Stuff was successfully created")
     end
   end
 end
