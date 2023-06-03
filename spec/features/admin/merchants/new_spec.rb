@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Merchant New Form", type: :feature do
-  before(:each) do
-    @merchant_1 = create(:merchant)
-    @merchant_2 = create(:merchant)
-  end
-
   describe "Creating a new merchant" do
     it "can fill out the new merchant form and submit" do
       visit new_admin_merchant_path
