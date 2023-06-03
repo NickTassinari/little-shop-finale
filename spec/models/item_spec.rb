@@ -7,5 +7,10 @@ RSpec.describe Item, type: :model do
     it { should have_many(:invoices).through(:invoice_items)}
 
     
+    describe "Validations" do
+      it { should validate_presence_of :name }
+      it { should validate_presence_of :description }
+      it { should validate_presence_of :unit_price }
+    end
   end
 end
