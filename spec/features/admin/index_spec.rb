@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Admin Dashboard Index Page" do
   before(:each) do
+    @merchant_1 = create(:merchant)
+
     @customer_1 = create(:customer) # 6 successful transactions (via 2 invoices)
     @customer_2 = create(:customer) # 5 successful transactions
     @customer_3 = create(:customer) # 4 successful transactions
@@ -44,6 +46,18 @@ RSpec.describe "Admin Dashboard Index Page" do
     @transaction_22 = @invoice_7.transactions.create!(result: "failed")
     @transaction_23 = @invoice_8.transactions.create!(result: "success")
     @transaction_24 = @invoice_9.transactions.create!(result: "failed")
+
+    @item_1 = create(:item, merchant: @merchant_1)
+    @item_2 = create(:item, merchant: @merchant_1)
+
+    @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
+    @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 1)
+    @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 0)
+    @invoice_item_4 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_3.id, status: 2)
+    @invoice_item_5 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_4.id, status: 1)
+    @invoice_item_6 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_5.id, status: 1)
+    @invoice_item_7 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_6.id, status: 2)
+    @invoice_item_8 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_6.id, status: 0)
   end
 
   describe "Admin Dashboard Display" do
@@ -104,10 +118,11 @@ RSpec.describe "Admin Dashboard Index Page" do
       within("#incomplete-invoices") do
         expect(page).to have_content("Incomplete Invoices")
         expect(page).to have_content("#{@invoice_1.id}")
-        expect(page).to have_content("#{@invoice_1.id}")
-        expect(page).to have_content("#{@invoice_1.id}")
-        expect(page).to_not  have_content("#{@invoice_1.id}")
-        expect(page).to_not  have_content("#{@invoice_1.id}")
+        expect(page).to have_content("#{@invoice_2.id}")
+        expect(page).to have_content("#{@invoice_4.id}")
+        expect(page).to have_content("#{@invoice_5.id}")
+        expect(page).to have_content("#{@invoice_6.id}")
+        expect(page).to_not have_content("#{@invoice_3.id}")
       end
     end
 
@@ -115,7 +130,9 @@ RSpec.describe "Admin Dashboard Index Page" do
       visit admin_path
 
       within("#incomplete-invoices") do
-
+        expect(page).to have_link("Invoice ##{@invoice_1.id}", href: admin_invoice_path(@invoice_1))
+        click_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_current_path(admin_invoice_path(@invoice_1))
       end
     end
   end
