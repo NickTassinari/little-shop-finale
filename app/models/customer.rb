@@ -16,4 +16,5 @@ class Customer < ApplicationRecord
   def num_successful_transactions
     transactions.where(result: "success").count
   end
+  
 end
