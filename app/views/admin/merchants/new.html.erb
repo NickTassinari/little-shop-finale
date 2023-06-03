@@ -1,2 +1,9 @@
 <%= render "/admin/admin_header" %>
 
+<h1>New Merchant Form</h1>
+
+<%= form_with model: [:admin, @merchant], local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.submit "Submit" %>
+<% end %>
