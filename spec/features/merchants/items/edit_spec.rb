@@ -37,11 +37,18 @@ RSpec.describe "Merchant Items Edit Page" do
 
     it "when visitor updates the information in the form and clicks submit, they are redirected back to item show page that displays updated information" do  
       visit edit_merchant_item_path(@merchant_1, @item_1)
-      save_and_open_page
-
+      
       
       fill_in("Name", with: "Nice Chair")
+      fill_in("Description", with: "It's Nice")
+      fill_in("Current selling price", with: 11888)
       click_button("Submit")
+      save_and_open_page
+      
+      expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
+      expect(page).to have_content("Nice Chair")
+      expect(page).to have_content("It's Nice")
+      expect(page).to have_content(11888)
 
 
 
