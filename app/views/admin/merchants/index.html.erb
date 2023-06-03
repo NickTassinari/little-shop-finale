@@ -1,8 +1,31 @@
 <%= render "/admin/admin_header" %>
 
-<h1>Admin Merchant Index Page</h1>
+<section id="enabled_merchants">
+  <ul>
+    <h4>Enabled Merchants</h4>
+    <% @enabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: merchant, url: admin_merchant_path(merchant), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "disabled" %>
+          <%= form.submit "Disable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>
 
-<h3>Merchants:</h3>
-  <% @merchants.each do |merchant| %>
-    <p><%= link_to merchant.name, admin_merchant_path(merchant) %></p>
-  <% end %>
+<section id="disabled_merchants">
+  <ul>
+    <h4>Disabled Merchants</h4>
+    <% @disabled_merchants.each do |merchant| %>
+      <li><%= link_to "#{merchant.name}", admin_merchant_path(merchant) %>
+        <%= form_with model: merchant, url: admin_merchant_path(merchant), local: true do |form| %>
+          <%= form.hidden_field :method, value: "patch" %>
+          <%= form.hidden_field :status, value: "enabled" %>
+          <%= form.submit "Enable #{merchant.name}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>

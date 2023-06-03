@@ -16,8 +16,7 @@ RSpec.describe "Merchant Items Show Page" do
     it "displays all attributes of the item" do
       visit merchant_items_path(@merchant_1)
 
-      click_link(@item_1.name)
-      # save_and_open_page
+      click_link @item_1.name
 
       expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
       expect(page).to have_content(@item_1.name)
