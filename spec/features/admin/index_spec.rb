@@ -114,7 +114,6 @@ RSpec.describe "Admin Dashboard Index Page" do
     # User Story 22
     it "displays the IDs of invoices that have items that have not yet been shipped" do
       visit admin_path
-      save_and_open_page
 
       within("#incomplete-invoices") do
         expect(page).to have_content("Incomplete Invoices")
