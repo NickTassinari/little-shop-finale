@@ -8,12 +8,4 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true
 
   enum status: {"disabled": 0, "enabled": 1}
-
-  def enable!
-    update(status: "enabled")
-  end
-  
-  def disable!
-    update(status: "disabled")
-  end
 end
