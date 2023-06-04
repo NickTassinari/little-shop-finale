@@ -20,6 +20,11 @@ RSpec.describe Merchant, type: :model do
 
       expect(top_custies).to eq([@customer_6.first_name, @customer_5.first_name, @customer_3.first_name, @customer_4.first_name, @customer_2.first_name])
     end 
+
+    it "#items_for_this_invoice" do 
+      top_customer_data 
+      expect(@merchant.items_for_this_invoice(@invoice_2.id)).to eq([@invoice_item_2])
+    end
   end 
 
   describe "Class Methods" do
