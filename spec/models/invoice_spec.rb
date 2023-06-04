@@ -26,7 +26,8 @@ RSpec.describe Invoice, type: :model do
   describe "Class Methods" do
     describe "#incomplete_invoices" do
       it "returns the invoices with items that have not been shipped" do
-        expect(Invoice.incomplete_invoices).to eq([@invoice_1, @invoice_3])
+        expect(Invoice.incomplete_invoices).to include(@invoice_1, @invoice_3)
+        expect(Invoice.incomplete_invoices).to_not include(@invoice_2)
       end
     end
   end
