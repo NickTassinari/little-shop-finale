@@ -18,9 +18,9 @@ RSpec.describe Invoice, type: :model do
     @invoice_2 = @customer_1.invoices.create!(status: 1)
     @invoice_3 = @customer_2.invoices.create!(status: 1)
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 0)
-    @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 1)
-    @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, status: 1)
-    @invoice_item_4 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_3.id, status: 2)
+    @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 2)
+    @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, status: 2)
+    @invoice_item_4 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, status: 1)
   end
 
   describe "Class Methods" do
