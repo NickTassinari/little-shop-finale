@@ -30,9 +30,9 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.find(params[:id])
 
     if params[:commit] == "Enable"
-      @item.enable!
+      @item.update(status: "enabled")
     elsif params[:commit] == "Disable"
-      @item.disable!
+      @item.update(status: "disabled")
     end
 
     redirect_to merchant_items_path(@merchant)
