@@ -17,11 +17,11 @@ RSpec.describe "Merchants Invoices Index" do
   it "links to merchant invoice show page from each id" do 
     visit merchant_invoices_path(@merchant)
 
-    expect(page).to have_link("#{@invoice_1.id}", href: merchant_invoices_path(@merchant, @invoice_1))
-    expect(page).to have_link("#{@invoice_2.id}", href: merchant_invoices_path(@merchant, @invoice_2))
-    expect(page).to have_link("#{@invoice_3.id}", href: merchant_invoices_path(@merchant, @invoice_3))
+    expect(page).to have_link("#{@invoice_1.id}", href: merchant_invoice_path(@merchant, @invoice_1))
+    expect(page).to have_link("#{@invoice_2.id}", href: merchant_invoice_path(@merchant, @invoice_2))
+    expect(page).to have_link("#{@invoice_3.id}", href: merchant_invoice_path(@merchant, @invoice_3))
 
     click_link("#{@invoice_3.id}") 
-    expect(current_path).to eq(merchant_invoices_path(@merchant, @invoice_3))
+    expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_3))
   end
 end

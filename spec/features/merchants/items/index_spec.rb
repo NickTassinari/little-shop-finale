@@ -44,7 +44,6 @@ RSpec.describe "Merchant Items Index Page" do
       
       within "#disabled_items" do
         click_button("Enable", id: "enable_button#{@item_5.id}")
-        save_and_open_page
 
         expect(current_path).to eq(merchant_items_path(@merchant_2))
         expect(page).to have_content("disabled")
@@ -77,6 +76,7 @@ RSpec.describe "Merchant Items Index Page" do
     it "displays two sections, 'Enabled Items' and 'Disabled Items'" do
 
       visit merchant_items_path(@merchant_1)
+      save_and_open_page
       within "#enabled_items" do
         expect(page).to have_button("Disable")
         
