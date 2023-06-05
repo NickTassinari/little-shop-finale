@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
-    resources :items, only: [:index, :show, :edit, :update], controller: "merchants/items"
+    resources :items, only: [:index, :show, :edit, :update], controller: "merchants/items" do
+      patch "status_update", on: :member
+    end
     resources :invoices, only: [:index, :show], controller: "merchants/invoices"
     resources :invoice_items, only: [:update]
   end
