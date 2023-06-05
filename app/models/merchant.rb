@@ -33,4 +33,9 @@ class Merchant < ApplicationRecord
   def invoice_revenue(invoice_id)
     items_for_this_invoice(invoice_id).sum('invoice_items.unit_price * invoice_items.quantity')
   end
+
+  def self.top_5_merchants
+    # require 'pry'; binding.pry
+    # Merchant.joins(:transactions).where('transactions.result = ?', 'success').select("merchants.id, merchants.name")
+  end
 end
