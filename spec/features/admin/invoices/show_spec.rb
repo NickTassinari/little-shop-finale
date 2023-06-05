@@ -46,10 +46,32 @@ RSpec.describe "Admin Invoice Show Page" do
     # User Story 34
     it "displays all of the items on the invoice with their details" do
       visit admin_invoice_path(@invoice_1)
-      save_and_open_page
+
       within("#invoice-item-details") do
         expect(page).to have_content("Items on the Invoice:")
+
         expect(page).to have_content(@item_1.name)
+        expect(page).to have_content("Quantity: #{@invoice_item_1.quantity}")
+        expect(page).to have_content("Unit Price: $100.00")
+        expect(page).to have_content("Status: #{@invoice_item_1.status}")
+
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content("Quantity: #{@invoice_item_2.quantity}")
+        expect(page).to have_content("Unit Price: $50.00")
+        expect(page).to have_content("Status: #{@invoice_item_2.status}")
+
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content("Quantity: #{@invoice_item_3.quantity}")
+        expect(page).to have_content("Unit Price: $1,000.00")
+        expect(page).to have_content("Status: #{@invoice_item_3.status}")
+
+        expect(page).to have_content(@item_4.name)
+        expect(page).to have_content("Quantity: #{@invoice_item_4.quantity}")
+        expect(page).to have_content("Unit Price: $500.00")
+        expect(page).to have_content("Status: #{@invoice_item_4.status}")
+
+        expect(page).to_not have_content(@item_5.name)
+        expect(page).to_not have_content(@item_6.name)
       end
     end
   end
