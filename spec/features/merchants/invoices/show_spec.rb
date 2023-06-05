@@ -47,7 +47,7 @@ RSpec.describe "Merchants Invoice Show Page" do
   it "can update status of invoice item" do 
     visit  "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}"
 
-    within  "#item_info" do 
+    within  "#update_status" do 
 
       page.select("packaged", from: :invoice_item_status)
       click_button("Update Item Status")
