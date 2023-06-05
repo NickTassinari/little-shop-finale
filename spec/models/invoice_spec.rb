@@ -21,6 +21,7 @@ RSpec.describe Invoice, type: :model do
     @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 2)
     @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, status: 2)
     @invoice_item_4 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, status: 1)
+    @invoice_item_5 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
   end
 
   describe "Class Methods" do

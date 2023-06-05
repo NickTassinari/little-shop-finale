@@ -12,4 +12,5 @@
     <p>Unit Price: <%= number_to_currency(invoice_item.unit_price / 100.00) %><p>
     <p>Status: <%= invoice_item.status %></p>
   <% end %>
+  <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>
 </div>
