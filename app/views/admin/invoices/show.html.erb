@@ -8,7 +8,12 @@
 
 <section id="invoice-item-details">
   <h4>Items on the Invoice:</h4>
-  <% @invoice.items.each do |item| %>
-    <p><%= item%></p>
-  <% end %>
+  <ul>
+    <% @invoice.items.each do |item| %>
+      <p><%= item.name %></p>
+      <li>Quantity: <%= item.num_sold(@invoice) %></li>
+      <li>Unit Price: <%= number_to_currency(item.price_sold(@invoice), format: '%u%n', unit: '$') %></li>
+      <li>Status: <%= item.invoice_status(@invoice) %></li>
+    <% end %>
+  </ul>
 </section>
