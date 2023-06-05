@@ -42,11 +42,13 @@ RSpec.describe "Merchant Items Index Page" do
       within "#item-#{@item_3.id}" do
         expect(page).to have_button("Disable")
         expect(page).to have_button("Enable")
+        expect(page).to have_content("pending")
       end
       
       within "#item-#{@item_4.id}" do
         expect(page).to have_button("Disable")
         expect(page).to have_button("Enable")
+        expect(page).to have_content("pending")
       end
     end
     
@@ -56,10 +58,8 @@ RSpec.describe "Merchant Items Index Page" do
         save_and_open_page
         click_button("Enable")
 
-       
-
         expect(current_path).to eq(merchant_items_path(@merchant_2))
-        expect(page).to have_button("Disable")
+        expect(page).to have_content("enabled")
       end
 
       visit merchant_items_path(@merchant_1)
@@ -68,7 +68,7 @@ RSpec.describe "Merchant Items Index Page" do
         click_button("Disable")
       
         expect(current_path).to eq(merchant_items_path(@merchant_1))
-        expect(page).to have_button("Enable")
+        expect(page).to have_content("disabled")
       end
     end
   end

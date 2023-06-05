@@ -7,5 +7,5 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :unit_price, presence: true
 
-  enum status: {"disabled": 0, "enabled": 1}
+  enum status: {"pending": 0, "disabled": 1, "enabled": 2}
 end
