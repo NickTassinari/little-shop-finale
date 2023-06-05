@@ -29,19 +29,33 @@ RSpec.describe Item, type: :model do
     @invoice_item_5 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 1, quantity: 1, unit_price: 100)
     @invoice_item_6 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, status: 1, quantity: 10, unit_price: 500)
   end
+
   describe "Instance Methods" do
-    it "#num_sold" do
-      expect(@item_1.num_sold(@invoice_1)).to eq(@invoice_item_1.quantity)
-      expect(@item_1.num_sold(@invoice_2)).to eq(@invoice_item_5.quantity)
-      expect(@item_2.num_sold(@invoice_1)).to eq(@invoice_item_2.quantity)
-      expect(@item_3.num_sold(@invoice_1)).to eq(@invoice_item_3.quantity)
+    describe "#num_sold" do
+      it "find the number of items sold on a specific invoice" do
+        expect(@item_1.num_sold(@invoice_1)).to eq(@invoice_item_1.quantity)
+        expect(@item_1.num_sold(@invoice_2)).to eq(@invoice_item_5.quantity)
+        expect(@item_2.num_sold(@invoice_1)).to eq(@invoice_item_2.quantity)
+        expect(@item_3.num_sold(@invoice_1)).to eq(@invoice_item_3.quantity)
+      end
     end
 
-    it "#unit_price" do
-      expect(@item_1.price_sold(@invoice_1)).to eq(@invoice_item_1.unit_price)
-      expect(@item_1.price_sold(@invoice_2)).to eq(@invoice_item_5.unit_price)
-      expect(@item_2.price_sold(@invoice_1)).to eq(@invoice_item_2.unit_price)
-      expect(@item_4.price_sold(@invoice_2)).to eq(@invoice_item_6.unit_price)
+    describe "#unit_price" do
+      it "find the unit price of an item on a specific invoice" do
+        expect(@item_1.price_sold(@invoice_1)).to eq(@invoice_item_1.unit_price)
+        expect(@item_1.price_sold(@invoice_2)).to eq(@invoice_item_5.unit_price)
+        expect(@item_2.price_sold(@invoice_1)).to eq(@invoice_item_2.unit_price)
+        expect(@item_4.price_sold(@invoice_2)).to eq(@invoice_item_6.unit_price)
+      end
+    end
+
+    describe "#invoice_status" do
+      it "find the status of an item on a specific invoice" do
+        expect(@item_1.invoice_status(@invoice_1)).to eq(@invoice_item_1.status)
+        expect(@item_1.invoice_status(@invoice_2)).to eq(@invoice_item_5.status)
+        expect(@item_2.invoice_status(@invoice_1)).to eq(@invoice_item_2.status)
+        expect(@item_4.invoice_status(@invoice_2)).to eq(@invoice_item_6.status)
+      end
     end
   end
 end
