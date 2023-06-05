@@ -26,7 +26,7 @@ def top_customer_data
 
   @customer_3 = create(:customer)
   @invoice_3 = create(:invoice, customer: @customer_3)
-  @invoice_item_3 = create(:invoice_item, unit_price: @item_1.unit_price, item_id: @item_1.id, invoice_id: @invoice_3.id)
+  @invoice_item_3 = create(:invoice_item, quantity: 1, unit_price: @item_1.unit_price, item_id: @item_1.id, invoice_id: @invoice_3.id)
   @transaction_4 = create(:transaction, result: "success", invoice: @invoice_3)
   @transaction_5 = create(:transaction, result: "success", invoice: @invoice_3)
   @transaction_6 = create(:transaction, result: "success", invoice: @invoice_3)
@@ -47,7 +47,7 @@ def top_customer_data
 
   @customer_6 = create(:customer)
   @invoice_6 = create(:invoice, customer: @customer_6)
-  @invoice_item_6 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_6.id)
+  @invoice_item_6 = create(:invoice_item, quantity: 5, unit_price: @item_1.unit_price, item_id: @item_1.id, invoice_id: @invoice_6.id)
   @transaction_12 = create(:transaction, result: "success", invoice: @invoice_6)
   @transaction_13 = create(:transaction, result: "success", invoice: @invoice_6)
   @transaction_14 = create(:transaction, result: "success", invoice: @invoice_6)
