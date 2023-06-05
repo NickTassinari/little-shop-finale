@@ -139,7 +139,7 @@ RSpec.describe "Admin Dashboard Index Page" do
     # User Story 23
     it "displays invoices sorted by oldest to newest" do
       visit admin_path
-      save_and_open_page
+
       within("#incomplete-invoices") do
         expect("#{@invoice_6.id}").to appear_before("#{@invoice_5.id}")
         expect("#{@invoice_5.id}").to appear_before("#{@invoice_4.id}")
@@ -149,7 +149,12 @@ RSpec.describe "Admin Dashboard Index Page" do
     end
 
     it "displays the date_created next to each invoice" do
+      visit admin_path
 
+      within("#incomplete-invoices") do
+        expect(page).to have_content("#{@invoice_1.id} - #{@invoice_1.created_at.strftime("%A, %B %d, %Y")}")
+        expect(page).to have_content("#{@invoice_2.id} - #{@invoice_2.created_at.strftime("%A, %B %d, %Y")}")
+      end
     end
   end
 end
