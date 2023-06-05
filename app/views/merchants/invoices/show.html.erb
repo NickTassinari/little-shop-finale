@@ -1,0 +1,16 @@
+<div id= "invoice_info">
+  <p> Invoice ID: <%= @invoice.id  %></p>
+  <p> Invoice Status: <%= @invoice.status  %></p>
+  <p> Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
+  <p> Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+</div>
+
+<div id= "item_info">
+  <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
+    <p>Name: <%=invoice_item.item.name%></p>
+    <p>Quantity: <%= invoice_item.quantity %></p>
+    <p>Unit Price: <%= number_to_currency(invoice_item.unit_price / 100.00) %><p>
+    <p>Status: <%= invoice_item.status %></p>
+  <% end %>
+  <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>
+</div>

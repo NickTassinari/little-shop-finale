@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get "/", to: "welcome#index"
+  
   get '/merchants/:id/dashboard', to: 'merchants#show', as: 'merchant_dashboard'
 
   get "/admin", to: "admin#index"
 
   namespace :admin do
-    resources :merchants, only: [:index, :show, :edit, :update], controller: "merchants"
+    resources :merchants, except: [:destroy], controller: "merchants"
     resources :invoices, only: [:index, :show]
   end
 
@@ -16,5 +14,6 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show, :edit, :update], controller: "merchants/items" do
       patch "status_update", on: :member
     end
+    resources :invoices, only: [:index, :show], controller: "merchants/invoices"
   end
 end

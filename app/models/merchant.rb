@@ -25,4 +25,12 @@ class Merchant < ApplicationRecord
             .order(count: :desc)
             .limit(5)
   end
+
+  def items_for_this_invoice(invoice_id)
+    invoice_items.where(invoice_id: invoice_id)
+  end
+
+  def invoice_revenue(invoice_id)
+    items_for_this_invoice(invoice_id).sum('invoice_items.unit_price * invoice_items.quantity')
+  end
 end
