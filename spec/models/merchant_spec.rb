@@ -25,6 +25,11 @@ RSpec.describe Merchant, type: :model do
       top_customer_data 
       expect(@merchant.items_for_this_invoice(@invoice_2.id)).to eq([@invoice_item_2])
     end
+
+    it '#invoice_revenue' do
+      top_customer_data
+      expect(@merchant.invoice_revenue(@invoice_3.id)).to eq(@invoice_item_3.unit_price * @invoice_item_3.quantity)
+    end
   end 
 
   describe "Class Methods" do
