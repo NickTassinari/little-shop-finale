@@ -4,25 +4,19 @@
   <section id="item-<%= item.id %>">
     <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
       
-      <% if item.enabled? %>
+     
         <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
           <%= form.hidden_field :status, value: "disabled" %>
-          <%= form.submit "Disable" %>
-        <% end %>
-        <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch, class: "hidden-form" do |form| %>
-          <%= form.hidden_field :status, value: "enabled" %>
-          <%= form.submit "Enable" %>
-        <% end %>
-      <% else %>
-        <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch, class: "hidden-form" do |form| %>
-          <%= form.hidden_field :status, value: "disabled" %>
-          <%= form.submit "Disable" %>
+          <%= form.submit "Disable", name: "commit", value: "Disable" %>
         <% end %>
         <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
           <%= form.hidden_field :status, value: "enabled" %>
-          <%= form.submit "Enable" %>
+          <%= form.submit "Enable", name: "commit", value: "Enable" %>
         <% end %>
-      <% end %>
+    
+        <span>Status: <%= item.enabled? ? "enabled" : "disabled" %></span>
+      
   </section>
+  
 <% end %>
 </ul>
