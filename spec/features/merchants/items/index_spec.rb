@@ -53,10 +53,10 @@ RSpec.describe "Merchant Items Index Page" do
     it "when user clicks button they are redirected back to the items index, see items status change" do
       visit merchant_items_path(@merchant_2)
       within "#item-#{@item_3.id}" do
-        click_button("Enable")
         save_and_open_page
+        click_button("Enable")
 
-        # @item_3.reload
+       
 
         expect(current_path).to eq(merchant_items_path(@merchant_2))
         expect(page).to have_button("Disable")
