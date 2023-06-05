@@ -47,13 +47,22 @@ RSpec.describe "Merchants Invoice Show Page" do
   it "can update status of invoice item" do 
     visit  "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}"
 
-    within  "#update_status" do 
 
       page.select("packaged", from: :invoice_item_status)
       click_button("Update Item Status")
       
       expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
-      expect(page).to have_content(@invoice_item_3.status)
-    end
+      
+      within "#item_info" do 
+        expect(page).to have_content("Status: packaged")
+      end
+
+      page.select("shipped", from: :invoice_item_status)
+      click_button("Update Item Status")
+      expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
+      
+      within "#item_info" do 
+        expect(page).to have_content("Status: shipped")
+      end 
   end
 end
