@@ -25,9 +25,23 @@ class Merchants::ItemsController < ApplicationController
     end
   end
 
+  def status_update
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:id])
+    if params[:commit] == "Enable" 
+      @item.update(status: "enabled")
+      flash[:notice] = "Item has been enabled"
+    elsif params[:commit] == "Disable" 
+      @item.update(status: "disabled")
+      flash[:notice] = "Item has been disabled"
+    end
+
+    redirect_to merchant_items_path(@merchant)
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
+    params.require(:item).permit(:name, :description, :unit_price, :merchant_id, :status)
   end
 end

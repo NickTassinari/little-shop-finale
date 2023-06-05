@@ -1,6 +1,20 @@
 <h2>My Items</h2>
 <ul>
   <% @merchant.items.each do |item| %>
-    <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
+    <section id="item-<%= item.id %>">
+      <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
+
+      <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
+        <%= form.hidden_field :status, value: "disabled" %>
+        <%= form.submit "Disable", name: "commit", value: "Disable" %>
+      <% end %>
+
+      <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
+        <%= form.hidden_field :status, value: "enabled" %>
+        <%= form.submit "Enable", name: "commit", value: "Enable" %>
+      <% end %>
+
+      <span>Status: <%= item.status %></span>
+    </section>
   <% end %>
 </ul>
