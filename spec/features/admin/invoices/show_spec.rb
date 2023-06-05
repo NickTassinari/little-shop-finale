@@ -13,14 +13,14 @@ RSpec.describe "Admin Invoice Show Page" do
     @item_6 = create(:item, merchant: @merchant_1)
     @invoice_1 = create(:invoice, customer: @customer_1)
     @invoice_2 = create(:invoice, customer: @customer_2)
-    @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
-    @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, status: 1)
-    @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, status: 0)
-    @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_1.id, status: 2)
-    @invoice_item_5 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 1)
-    @invoice_item_6 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, status: 1)
-    @invoice_item_7 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_2.id, status: 2)
-    @invoice_item_8 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_2.id, status: 0)
+    @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1, quantity: 10, unit_price: 100)
+    @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, status: 1, quantity: 20, unit_price: 50)
+    @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, status: 0, quantity: 2, unit_price: 1000)
+    @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_1.id, status: 2, quantity: 5, unit_price: 500)
+    @invoice_item_5 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, status: 1, quantity: 1, unit_price: 100)
+    @invoice_item_6 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, status: 1, quantity: 10, unit_price: 500)
+    @invoice_item_7 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_2.id, status: 2, quantity: 100, unit_price: 2)
+    @invoice_item_8 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_2.id, status: 0, quantity: 20, unit_price: 10)
   end
 
   describe "Admin Invoice Details" do
@@ -46,8 +46,11 @@ RSpec.describe "Admin Invoice Show Page" do
     # User Story 34
     it "displays all of the items on the invoice with their details" do
       visit admin_invoice_path(@invoice_1)
-      require 'pry'; binding.pry
-
+      save_and_open_page
+      within("#invoice-item-details") do
+        expect(page).to have_content("Items on the Invoice:")
+        expect(page).to have_content(@item_1.name)
+      end
     end
   end
 end
