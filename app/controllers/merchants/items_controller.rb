@@ -29,10 +29,12 @@ class Merchants::ItemsController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
 
-    if params[:commit] == "Enable"
+    if params[:commit] == "Enable" || params[:item][:status] == "enabled"
       @item.update(status: "enabled")
-    elsif params[:commit] == "Disable"
+      flash[:notice] = "Item has been enabled"
+    elsif params[:commit] == "Disable" || params[:item][:status] == "disabled"
       @item.update(status: "disabled")
+      flash[:notice] = "Item has been disabled"
     end
 
     redirect_to merchant_items_path(@merchant)
