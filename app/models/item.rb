@@ -14,4 +14,8 @@ class Item < ApplicationRecord
   def price_sold(invoice)
     invoice_items.where(invoice_id: invoice.id).pluck(:unit_price).first
   end
+
+  def invoice_status(invoice)
+    invoice_items.where(invoice_id: invoice.id).pluck(:status).first
+  end
 end
