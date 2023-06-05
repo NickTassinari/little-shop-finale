@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "/admin", to: "admin#index"
 
+  # patch "/merchants/:id/invoice_items/:invoice_item.id", to: "merchants/invoices#show"
+
   namespace :admin do
     resources :merchants, except: [:destroy], controller: "merchants"
     resources :invoices, only: [:index, :show]
@@ -15,5 +17,6 @@ Rails.application.routes.draw do
       patch "status_update", on: :member
     end
     resources :invoices, only: [:index, :show], controller: "merchants/invoices"
+    resources :invoice_items, only: [:update]
   end
 end
