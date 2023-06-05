@@ -88,9 +88,9 @@ def top_merch_data
   @invitm1 = create(:invoice_item, invoice: @invoice3, item: @item5, quantity: 30, unit_price: 1000)
   @invitm12 = create(:invoice_item, invoice: @invoice3, item: @item6, quantity: 70, unit_price: 1000)
 
-  @transaction1 = create(:transaction, invoice: @invoice1, result: 1)
-  @transaction2 = create(:transaction, invoice: @invoice2, result: 1)
-  @transaction3 = create(:transaction, invoice: @invoice3, result: 1)
+  @transaction1 = create(:transaction, invoice: @invoice1, result: "success")
+  @transaction2 = create(:transaction, invoice: @invoice2, result: "success")
+  @transaction3 = create(:transaction, invoice: @invoice3, result: "success")
 end
 
 
