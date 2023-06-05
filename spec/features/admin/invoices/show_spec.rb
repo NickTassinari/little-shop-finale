@@ -78,7 +78,7 @@ RSpec.describe "Admin Invoice Show Page" do
     # User Story 35
     it "displays the total revenue for the invoice" do
       visit admin_invoice_path(@invoice_1)
-      save_and_open_page
+
       within("#invoice-details") do
         expect(page).to have_content("Total Revenue: $6,500.00")
       end
@@ -86,6 +86,43 @@ RSpec.describe "Admin Invoice Show Page" do
       visit admin_invoice_path(@invoice_2)
       within("#invoice-details") do
         expect(page).to have_content("Total Revenue: $5,500.00")
+      end
+    end
+  end
+
+  describe "Admin Invoice Item Status Update" do
+    # User Story 36
+    it "displays a select field 'invoice status' with current status as default" do
+      visit admin_invoice_path(@invoice_1)
+
+      within("#invoice-item-details") do
+        expect(page).to have_select("invoice_status", selected: "#@invoice_1.status")
+      end
+
+      visit admin_invoice_path(@invoice_2)
+
+      within("#invoice-item-details") do
+        expect(page).to have_select("invoice_status", selected: "#@invoice_2.status")
+      end
+    end
+
+    it "allows me to select a new status and submit the form" do
+      visit admin_invoice_path(@invoice_1)
+
+      within("#invoice-item-details") do
+        expect(@invoice_1.status).to eq("in progress")
+
+        select("completed", from: "invoice_status")
+        click_button("Update Invoice")
+        @invoice_1.reload
+        expect(page).to have_current_path(admin_invoice_path(@invoice_1))
+        expect(@invoice_1.status).to eq("completed")
+
+        select("cancelled", from: "invoice_status")
+        click_button("Update Invoice")
+        @invoice_1.reload
+        expect(page).to have_current_path(admin_invoice_path(@invoice_1))
+        expect(@invoice_1.status).to eq("cancelled")
       end
     end
   end
