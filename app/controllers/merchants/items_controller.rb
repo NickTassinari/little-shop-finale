@@ -1,6 +1,8 @@
 class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
+    @enabled = @merchant.items.where(status: 1)
+    @disabled = @merchant.items.where(status: 0)
   end
 
   def show
@@ -28,11 +30,10 @@ class Merchants::ItemsController < ApplicationController
   def status_update
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
-
-    if params[:commit] == "Enable" || params[:item][:status] == "enabled"
+    if params[:commit] == "Enable" 
       @item.update(status: "enabled")
       flash[:notice] = "Item has been enabled"
-    elsif params[:commit] == "Disable" || params[:item][:status] == "disabled"
+    elsif params[:commit] == "Disable" 
       @item.update(status: "disabled")
       flash[:notice] = "Item has been disabled"
     end
