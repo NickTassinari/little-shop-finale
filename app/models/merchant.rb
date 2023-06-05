@@ -25,4 +25,8 @@ class Merchant < ApplicationRecord
             .order(count: :desc)
             .limit(5)
   end
+
+  def items_for_this_invoice(invoice_id)
+    invoice_items.where(invoice_id: invoice_id)
+  end
 end

@@ -1,7 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 def top_customer_data
   @merchant = create(:merchant)
-  @item_1 = create(:item, merchant: @merchant)
+  @merchant_2 = create(:merchant)
+  @item_1 = create(:item, merchant: @merchant, unit_price: 2000)
+
+  @custie_1 = create(:customer)
+  @invoice_7 = create(:invoice, customer: @custie_1)
+  @invoice_item_7 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_7.id)
 
   @customer_1 = create(:customer)
   @invoice_1 = create(:invoice, customer: @customer_1)
@@ -14,7 +19,7 @@ def top_customer_data
 
   @customer_3 = create(:customer)
   @invoice_3 = create(:invoice, customer: @customer_3)
-  @invoice_item_3 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_3.id)
+  @invoice_item_3 = create(:invoice_item, unit_price: @item_1.unit_price, item_id: @item_1.id, invoice_id: @invoice_3.id)
   @transaction_4 = create(:transaction, result: "success", invoice: @invoice_3)
   @transaction_5 = create(:transaction, result: "success", invoice: @invoice_3)
   @transaction_6 = create(:transaction, result: "success", invoice: @invoice_3)
