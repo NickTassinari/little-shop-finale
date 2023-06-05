@@ -28,14 +28,6 @@ RSpec.describe "Merchant Items Index Page" do
     end
 
     #User Story 9
-#     9. Merchant Item Disable/Enable
-
-# As a merchant
-# When I visit my items index page (/merchants/:merchant_id/items)
-# Next to each item name I see a button to disable or enable that item.
-# When I click this button
-# Then I am redirected back to the items index
-# And I see that the items status has changed
     it "displays next to each item name a button to disable or enable the item" do
       visit merchant_items_path(@merchant_2)
       
@@ -55,7 +47,6 @@ RSpec.describe "Merchant Items Index Page" do
     it "when user clicks button they are redirected back to the items index, see items status change" do
       visit merchant_items_path(@merchant_2)
       within "#item-#{@item_3.id}" do
-        save_and_open_page
         click_button("Enable")
 
         expect(current_path).to eq(merchant_items_path(@merchant_2))
@@ -63,7 +54,6 @@ RSpec.describe "Merchant Items Index Page" do
       end
 
       visit merchant_items_path(@merchant_1)
-      
       within "#item-#{@item_1.id}" do
         click_button("Disable")
       
