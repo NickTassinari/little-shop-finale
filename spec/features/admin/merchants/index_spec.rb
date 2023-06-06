@@ -89,7 +89,6 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     it "displays the best day for each of the top five merchants" do
       top_merch_data
       visit admin_merchants_path
-      save_and_open_page
       within "#top_merchants" do
         expect(page).to have_content(@merch1.name)
         expect(page).to have_content("$1,900.00")
