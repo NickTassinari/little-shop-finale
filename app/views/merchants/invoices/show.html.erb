@@ -6,18 +6,19 @@
 </div>
 
 <div id= "item_info">
-  <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
-    <p>Name: <%=invoice_item.item.name%></p>
-    <p>Quantity: <%= invoice_item.quantity %></p>
-    <p>Unit Price: <%= number_to_currency(invoice_item.unit_price / 100.00) %><p>
-    <p>Status: <%= invoice_item.status %></p>
+    <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
+      <p>Name: <%=invoice_item.item.name%></p>
+      <p>Quantity: <%= invoice_item.quantity %></p>
+      <p>Unit Price: <%= number_to_currency(invoice_item.unit_price&. / 100.00) %><p>
+      <p>Status: <%= invoice_item.status %></p>
 </div>
-<div id= "update_status">
-    <p><%= form_with model: [@merchant, invoice_item], method: :patch, local: true do |form| %>
-        <%= form.label :status, "Status:"  %>
-        <%= form.select :status, ["pending", "packaged", "shipped"] %>
-        <%= form.submit "Update Item Status" %>
-        <% end %>
-</div>
-  <% end %>
-  <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>
+
+      <div id= "update_status">
+          <p><%= form_with model: [@merchant, invoice_item], method: :patch, local: true do |form| %>
+              <%= form.label :status, "Status:"  %>
+              <%= form.select :status, ["pending", "packaged", "shipped"] %>
+              <%= form.submit "Update Item Status" %>
+          <% end %>    
+      </div>
+    <% end %>
+<p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>

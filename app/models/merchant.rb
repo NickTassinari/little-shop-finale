@@ -42,4 +42,11 @@ class Merchant < ApplicationRecord
             .order("tot_revenue desc")
             .limit(5)
   end
+
+  def invoices_to_ship 
+    invoice_items.select("invoice_items.*")
+                  .where(status: [0, 1])
+                  .joins(:invoice)
+                  .order("invoices.created_at")
+  end
 end
