@@ -31,3 +31,11 @@
     <% end %>
   </ul>
 </section>
+
+<section id="new_item_link">
+<% @merchant.items.each do |item| %>
+<li>
+  <%= link_to "New Item", new_merchant_item_path(@merchant), id: "new_item#{item.id}" %>
+  <% end %>
+</li>
+</section>
