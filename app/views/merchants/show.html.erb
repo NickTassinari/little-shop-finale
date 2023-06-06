@@ -12,7 +12,7 @@
   <%  @merchant.invoices_to_ship.each do |invoice_item| %>
       <p><%= invoice_item.item.name %></p>
       <p><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></p> 
-      <p><%= invoice_item.created_at.strftime('%A, %B%e, %Y') %>
+      <p><%= invoice_item.invoice.created_at.strftime('%A, %B%e, %Y') %></p>
   <% end %>  
 
 </div>
