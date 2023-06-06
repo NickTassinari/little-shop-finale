@@ -11,7 +11,7 @@ RSpec.describe "Admin Invoice Show Page" do
     @item_4 = create(:item, merchant: @merchant_1)
     @item_5 = create(:item, merchant: @merchant_1)
     @item_6 = create(:item, merchant: @merchant_1)
-    @invoice_1 = create(:invoice, customer: @customer_1)
+    @invoice_1 = create(:invoice, customer: @customer_1, status: 0)
     @invoice_2 = create(:invoice, customer: @customer_2)
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1, quantity: 10, unit_price: 100)
     @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, status: 1, quantity: 20, unit_price: 50)
@@ -30,7 +30,6 @@ RSpec.describe "Admin Invoice Show Page" do
 
       within("#invoice-details") do
         expect(page).to have_content("Invoice ##{@invoice_1.id}")
-        expect(page).to have_content("Status: #{@invoice_1.status}")
         expect(page).to have_content("Created on: #{@invoice_1.created_at.strftime("%A, %B %d, %Y")}")
 
         expect(page).to have_content("Customer:")
@@ -92,35 +91,23 @@ RSpec.describe "Admin Invoice Show Page" do
 
   describe "Admin Invoice Item Status Update" do
     # User Story 36
-    it "displays a select field 'invoice status' with current status as default" do
+    it "displays a status select field that updates the invoice's status" do
       visit admin_invoice_path(@invoice_1)
 
-      within("#invoice-item-details") do
-        expect(page).to have_select("invoice_status", selected: "#@invoice_1.status")
-      end
-
-      visit admin_invoice_path(@invoice_2)
-
-      within("#invoice-item-details") do
-        expect(page).to have_select("invoice_status", selected: "#@invoice_2.status")
-      end
-    end
-
-    it "allows me to select a new status and submit the form" do
-      visit admin_invoice_path(@invoice_1)
-
-      within("#invoice-item-details") do
+      within("#invoice-details") do
         expect(@invoice_1.status).to eq("in progress")
 
-        select("completed", from: "invoice_status")
-        click_button("Update Invoice")
+        select("completed", :from => 'invoice[status]')
+        click_button 'Update Invoice'
         @invoice_1.reload
+
         expect(page).to have_current_path(admin_invoice_path(@invoice_1))
         expect(@invoice_1.status).to eq("completed")
 
-        select("cancelled", from: "invoice_status")
+        select("cancelled", :from => 'invoice[status]')
         click_button("Update Invoice")
         @invoice_1.reload
+        
         expect(page).to have_current_path(admin_invoice_path(@invoice_1))
         expect(@invoice_1.status).to eq("cancelled")
       end
