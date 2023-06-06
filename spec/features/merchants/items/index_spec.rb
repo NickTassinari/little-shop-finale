@@ -112,7 +112,7 @@ RSpec.describe "Merchant Items Index Page" do
       
       within "#new_item_link" do
 
-      click_link("New Item", id: "new_item#{@item_4.id}")
+      click_link("New Item")
       expect(current_path).to eq(new_merchant_item_path(@merchant_1))
       end
     end
