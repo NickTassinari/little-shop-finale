@@ -1,7 +1,25 @@
 <section id="invoice-details">
   <h2><%= "Invoice ##{@invoice.id}"%></h2>
-  <p><%= "Status: #{@invoice.status}"%></p>
+  <p>Status: </p>
+  <%= form_with model: @invoice, url: admin_invoice_path(@invoice), method: :patch do |form| %>
+    <%= form.select :status, Invoice.statuses.keys, selected: @invoice.status %>
+    <%= form.submit "Update Invoice" %>
+  <% end %>
   <p><%= "Created on: #{@invoice.created_at.strftime("%A, %B %d, %Y")}"%></p>
+  <p> Total Revenue: <%= number_to_currency(@invoice.total_revenue) %></p>
   <h4>Customer:</h4>
   <p><%="#{@invoice.customer.first_name} #{@invoice.customer.last_name}"%></p>
+</section>
+
+  
+<section id="invoice-item-details">
+  <h4>Items on the Invoice:</h4>
+  <ul>
+    <% @invoice.items.each do |item| %>
+      <li><%= item.name %></li>
+      <p>Quantity: <%= item.num_sold(@invoice) %></p>
+      <p>Unit Price: <%= number_to_currency(item.price_sold(@invoice)) %></p>
+      <p>Status: <%= item.invoice_status(@invoice) %></p>
+    <% end %>
+  </ul>
 </section>

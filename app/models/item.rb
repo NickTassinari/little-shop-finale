@@ -16,4 +16,16 @@ class Item < ApplicationRecord
   def self.disabled_items
     where("status = 1")
   end
+
+  def num_sold(invoice)
+    invoice_items.where(invoice_id: invoice.id).pluck(:quantity).first
+  end
+
+  def price_sold(invoice)
+    invoice_items.where(invoice_id: invoice.id).pluck(:unit_price).first
+  end
+
+  def invoice_status(invoice)
+    invoice_items.where(invoice_id: invoice.id).pluck(:status).first
+  end
 end
