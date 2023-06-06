@@ -2,6 +2,12 @@
 
 
 <%= form_with model: [@merchant, @item], local: true do |form|  %>
-  <%= render 'form', form: form %>
-<% end %>
+  <p><%= form.label :name %>
+  <%= form.text_field :name %></p>
+  <p><%= form.label :description %>
+  <%= form.text_field :description %></p>
+  <p><%= form.label :unit_price, "Current Price" %>
+  <%= form.number_field :unit_price %></p>
+  <p><%= form.submit "Submit"  %>
   
+<% end %>
