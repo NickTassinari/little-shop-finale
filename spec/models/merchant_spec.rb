@@ -30,6 +30,16 @@ RSpec.describe Merchant, type: :model do
       top_customer_data
       expect(@merchant.invoice_revenue(@invoice_3.id)).to eq(@invoice_item_3.unit_price * @invoice_item_3.quantity)
     end
+
+    it "#best_day" do
+      top_merch_data
+
+      expect(@merch1.top_day).to eq(@invoice1.created_at.to_date)
+      expect(@merch6.top_day).to eq(@invoice2.created_at.to_date)
+      expect(@merch2.top_day).to eq(@invoice1.created_at.to_date)
+      expect(@merch4.top_day).to eq(@invoice2.created_at.to_date)
+      expect(@merch5.top_day).to eq(@invoice2.created_at.to_date)
+    end
   end 
 
   describe "Class Methods" do
