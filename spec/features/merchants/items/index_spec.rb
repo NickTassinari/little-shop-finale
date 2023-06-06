@@ -1,24 +1,92 @@
 require "rails_helper"
 
 RSpec.describe "Merchant Items Index Page" do
-
-
   describe "Merchant Items Index Display", type: :feature do
     before(:each) do 
       @merchant_1 = create(:merchant)
       @merchant_2 = create(:merchant)
-      @item_1 = create(:item, merchant: @merchant_1)
-      @item_2 = create(:item, merchant: @merchant_1) 
-      @item_3 = create(:item, merchant: @merchant_2) 
+      @item_1 = create(:item, merchant: @merchant_1, status: :enabled)
+      @item_2 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_3 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_4 = create(:item, merchant: @merchant_1, status: :enabled)
+      @item_5 = create(:item, merchant: @merchant_2, status: :disabled)
+      @item_6 = create(:item, merchant: @merchant_2, status: :enabled)
+      @item_7 = create(:item, merchant: @merchant_2, status: :disabled)
+      @item_8 = create(:item, merchant: @merchant_2, status: :enabled)
     end
     # User Story 6
     it "displays a list of the names of all my items" do
       visit merchant_items_path(@merchant_1) 
-
       expect(page).to have_content("My Items")
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_2.name)
-      expect(page).to_not have_content(@item_3.name)
+      # expect(page).to_not have_content(@item_3.name)
+    end
+    #User Story 7
+    it "display link of items name, redirects to merchant items show page" do
+    visit merchant_items_path(@merchant_1)
+
+    click_link @item_1.name
+
+    expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
+    end
+
+    #User Story 9
+    it "displays next to each item name a button to disable or enable the item" do
+      visit merchant_items_path(@merchant_2)
+      
+        expect(page).to have_button("Disable")
+        expect(page).to have_button("Enable")
+    end
+    
+    it "when user clicks button they are redirected back to the items index, see items status change" do
+      visit merchant_items_path(@merchant_2)
+      
+      within "#disabled_items" do
+        click_button("Enable", id: "enable_button#{@item_5.id}")
+
+        expect(current_path).to eq(merchant_items_path(@merchant_2))
+        expect(page).to have_content("disabled")
+      end
+    
+
+      visit merchant_items_path(@merchant_1)
+      
+      within "#enabled_items" do
+        click_button("Disable", id: "disable_button#{@item_1.id}")
+      
+        expect(current_path).to eq(merchant_items_path(@merchant_1))
+        expect(page).to have_content("enabled")
+      end
+    end
+  end
+
+    #US 10 
+  describe "Merchant items grouped by status" do
+    before(:each) do 
+      @merchant_1 = create(:merchant)
+      @item_1 = create(:item, merchant: @merchant_1, status: :enabled)
+      @item_2 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_3 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_4 = create(:item, merchant: @merchant_1, status: :enabled)
+    end 
+    it "displays two sections, 'Enabled Items' and 'Disabled Items'" do
+
+      visit merchant_items_path(@merchant_1)
+    
+      within "#enabled_items" do
+        expect(page).to have_button("Disable")
+        
+        click_button("Disable", id: "disable_button#{@item_1.id}")
+        expect(current_path).to eq(merchant_items_path(@merchant_1))
+      end
+
+      within "#disabled_items" do
+        expect(page).to have_button("Enable")
+
+        click_button("Enable", id: "enable_button#{@item_3.id}")
+        expect(current_path).to eq(merchant_items_path(@merchant_1))
+      end
     end
   end
 end

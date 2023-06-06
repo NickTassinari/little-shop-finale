@@ -1,6 +1,33 @@
 <h2>My Items</h2>
-<ul>
-  <% @merchant.items.each do |item| %>
-    <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
-  <% end %>
-</ul>
+
+<section id="enabled_items">
+  <h4>Enabled Items</h4>
+  <ul>
+    <% @enabled.each do |item| %>
+      <li>
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
+          <%= form.hidden_field :status, value: "disabled" %>
+          <%= form.submit "Disable", name: "commit", value: "Disable", id: "disable_button#{item.id}" %>
+        <% end %>
+        <span>Status: <%= item.status %></span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section id="disabled_items">
+  <h4>Disabled Items</h4>
+  <ul>
+    <% @disabled.each do |item| %>
+      <li>
+        <%= link_to item.name, merchant_item_path(@merchant, item) %>
+        <%= form_with model: item, url: status_update_merchant_item_path(@merchant, item), method: :patch do |form| %>
+          <%= form.hidden_field :status, value: "enabled" %>
+          <%= form.submit "Enable", name: "commit", value: "Enable", id: "enable_button#{item.id}"  %>
+        <% end %>
+        <span>Status: <%= item.status %></span>
+      </li>
+    <% end %>
+  </ul>
+</section>

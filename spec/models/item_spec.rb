@@ -16,9 +16,9 @@ RSpec.describe Item, type: :model do
   before(:each) do
     @merchant_1 = create(:merchant)
     @customer_1 = create(:customer)
-    @item_1 = create(:item, merchant: @merchant_1)
-    @item_2 = create(:item, merchant: @merchant_1)
-    @item_3 = create(:item, merchant: @merchant_1)
+    @item_1 = create(:item, merchant: @merchant_1, status: :enabled)
+    @item_2 = create(:item, merchant: @merchant_1, status: :disabled)
+    @item_3 = create(:item, merchant: @merchant_1, status: :disabled)
     @item_4 = create(:item, merchant: @merchant_1)
     @invoice_1 = create(:invoice, customer: @customer_1)
     @invoice_2 = create(:invoice, customer: @customer_1)
@@ -55,6 +55,20 @@ RSpec.describe Item, type: :model do
         expect(@item_1.invoice_status(@invoice_2)).to eq(@invoice_item_5.status)
         expect(@item_2.invoice_status(@invoice_1)).to eq(@invoice_item_2.status)
         expect(@item_4.invoice_status(@invoice_2)).to eq(@invoice_item_6.status)
+      end
+    end
+  end
+
+  describe "Class Methods" do
+    describe ".enabled_items" do
+      it "groups items by enabled status" do
+        expect(Item.enabled_items).to eq([@item_1])
+      end
+    end
+
+    describe ".disabled_items" do
+      it "groups items by disabled status" do
+        expect(Item.disabled_items).to eq([@item_2, @item_3])
       end
     end
   end
