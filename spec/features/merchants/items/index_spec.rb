@@ -61,10 +61,7 @@ RSpec.describe "Merchant Items Index Page" do
     end
   end
 
-    #US 10 Merchant Items Grouped by Status As a merchant,
-  # When I visit my merchant items index page
-  # Then I see two sections, one for "Enabled Items" and one for "Disabled Items"
-  # And I see that each Item is listed in the appropriate section
+    #US 10 
   describe "Merchant items grouped by status" do
     before(:each) do 
       @merchant_1 = create(:merchant)
