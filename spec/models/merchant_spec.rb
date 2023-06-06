@@ -46,5 +46,12 @@ RSpec.describe Merchant, type: :model do
         expect(Merchant.disabled_merchants).to eq([@merchant_1, @merchant_2])
       end
     end
+
+    describe ".top_5_merchants" do
+      it "returns the top 5 merchants with highest total revenue" do
+        top_merch_data
+        expect(Merchant.top_5_merchants).to eq([@merch1, @merch6, @merch2, @merch4, @merch5])
+      end
+    end
   end
 end

@@ -1,11 +1,4 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-
-#   @merchant = create(:merchant)
-#   @item_1 = create(:item, merchant: @merchant)
-#   @customer_1 = create(:customer)
-#   @invoice = create(:invoice, customer: @customer_1)
-#   @transaction = create(:transaction, invoice: @invoice)
-#   @invoice_item = create(:invoice_item, item: @item_1, invoice: @invoice)
 def top_customer_data
   @merchant = create(:merchant)
   @merchant_2 = create(:merchant)
@@ -61,6 +54,43 @@ def merch_status_data
   @merchant_3 = create(:merchant, status: 1)
   @merchant_4 = create(:merchant, status: 1)
   @merchant_5 = create(:merchant, status: 1)
+end
+
+def top_merch_data
+  @merch1 = create(:merchant, status: 1)
+  @merch2 = create(:merchant, status: 1)
+  @merch3 = create(:merchant, status: 1)
+  @merch4 = create(:merchant, status: 1)
+  @merch5 = create(:merchant, status: 1)
+  @merch6 = create(:merchant, status: 1)
+
+  @item1 = create(:item, merchant: @merch1)
+  @item2 = create(:item, merchant: @merch2)
+  @item3 = create(:item, merchant: @merch3)
+  @item4 = create(:item, merchant: @merch4)
+  @item5 = create(:item, merchant: @merch5)
+  @item6 = create(:item, merchant: @merch6)
+
+  @invoice1 = create(:invoice)
+  @invoice2 = create(:invoice)
+  @invoice3 = create(:invoice)
+
+  @invitm1 = create(:invoice_item, invoice: @invoice1, item: @item1, quantity: 100, unit_price: 1000)
+  @invitm2 = create(:invoice_item, invoice: @invoice1, item: @item2, quantity: 90, unit_price: 1000)
+  @invitm3 = create(:invoice_item, invoice: @invoice1, item: @item3, quantity: 40, unit_price: 1000)
+  @invitm4 = create(:invoice_item, invoice: @invoice2, item: @item4, quantity: 90, unit_price: 1000)
+  @invitm5 = create(:invoice_item, invoice: @invoice2, item: @item5, quantity: 50, unit_price: 1000)
+  @invitm6 = create(:invoice_item, invoice: @invoice2, item: @item6, quantity: 90, unit_price: 1000)
+  @invitm7 = create(:invoice_item, invoice: @invoice3, item: @item1, quantity: 90, unit_price: 1000)
+  @invitm8 = create(:invoice_item, invoice: @invoice3, item: @item2, quantity: 20, unit_price: 1000)
+  @invitm9 = create(:invoice_item, invoice: @invoice3, item: @item3, quantity: 10, unit_price: 1000)
+  @invitm10 = create(:invoice_item, invoice: @invoice3, item: @item4, quantity: 5, unit_price: 1000)
+  @invitm11 = create(:invoice_item, invoice: @invoice3, item: @item5, quantity: 30, unit_price: 1000)
+  @invitm12 = create(:invoice_item, invoice: @invoice3, item: @item6, quantity: 70, unit_price: 1000)
+
+  @transaction1 = create(:transaction, invoice: @invoice1, result: "success")
+  @transaction2 = create(:transaction, invoice: @invoice2, result: "success")
+  @transaction3 = create(:transaction, invoice: @invoice3, result: "success")
 end
 
 

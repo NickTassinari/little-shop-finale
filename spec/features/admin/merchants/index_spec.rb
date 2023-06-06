@@ -64,4 +64,21 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
       expect(current_path).to eq(new_admin_merchant_path)
     end
   end
+
+  describe "top 5 merchants" do
+    it "can display names of top 5 merchants by total revenue" do
+      top_merch_data
+      visit admin_merchants_path
+
+      within "#top_merchants" do
+        expect(page).to have_content("Top 5 Merchants")
+        expect(@merch1.name).to appear_before(@merch6.name)
+        expect(@merch6.name).to appear_before(@merch2.name)
+        expect(@merch2.name).to appear_before(@merch4.name)
+        expect(@merch4.name).to appear_before(@merch5.name)
+        expect(@merch5.name).to_not appear_before(@merch1.name)
+        expect(page).to_not have_content(@merch3.name)
+      end
+    end
+  end
 end
