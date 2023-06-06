@@ -33,6 +33,9 @@ RSpec.describe Merchant, type: :model do
 
     it "#best_day" do
       top_merch_data
+      # @invoice1.update(created_at: "01/06/2023")
+      # @invoice2.update(created_at: "04/06/2023")
+      # @invoice3.update(created_at: "06/06/2023")
 
       expect(@merch1.best_day.strftime('%B %d, %Y')).to eq(@invoice1.created_at.strftime('%B %d, %Y'))
       expect(@merch6.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
