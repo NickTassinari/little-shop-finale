@@ -7,7 +7,11 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def new
-    @merchant = Merchant.new
+    @item = Item.new
+  end
+
+  def create
+
   end
 
   def show
