@@ -140,19 +140,19 @@ def dashboard_data
 end 
 
 def ship_data
-  merchant = create(:merchant)
-  item_1 = create(:item, merchant: merchant)
-  item_2 = create(:item, merchant: merchant)
-  item_3 = create(:item, merchant: merchant, status: 2)
-  customer_1 = create(:customer)
-  customer_2 = create(:customer)
-  customer_3 = create(:customer)
-  invoice_1 = customer_1.invoices.create!(status: "completed")
-  invoice_2 = customer_2.invoices.create!(status: "completed")
-  invoice_3 = customer_3.invoices.create!(status: "completed")
-  invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 0)
-  invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 0)
-  invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 2)
+  @merchant = create(:merchant)
+  @item_1 = create(:item, merchant: @merchant)
+  @item_2 = create(:item, merchant: @merchant)
+  @item_3 = create(:item, merchant: @merchant, status: 2)
+  @customer_1 = create(:customer)
+  @customer_2 = create(:customer)
+  @customer_3 = create(:customer)
+  @invoice_1 = @customer_1.invoices.create!(status: "completed")
+  @invoice_2 = @customer_2.invoices.create!(status: "completed")
+  @invoice_3 = @customer_3.invoices.create!(status: "completed")
+  @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 0)
+  @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_2.id, status: 0)
+  @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_3.id, status: 2)
 end
 
 
