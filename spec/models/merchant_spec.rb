@@ -34,11 +34,11 @@ RSpec.describe Merchant, type: :model do
     it "#best_day" do
       top_merch_data
 
-      expect(@merch1.top_day).to eq(@invoice1.created_at.to_date)
-      expect(@merch6.top_day).to eq(@invoice2.created_at.to_date)
-      expect(@merch2.top_day).to eq(@invoice1.created_at.to_date)
-      expect(@merch4.top_day).to eq(@invoice2.created_at.to_date)
-      expect(@merch5.top_day).to eq(@invoice2.created_at.to_date)
+      expect(@merch1.best_day.strftime('%B %d, %Y')).to eq(@invoice1.created_at.strftime('%B %d, %Y'))
+      expect(@merch6.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
+      expect(@merch2.best_day.strftime('%B %d, %Y')).to eq(@invoice1.created_at.strftime('%B %d, %Y'))
+      expect(@merch4.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
+      expect(@merch5.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
     end
   end 
 
