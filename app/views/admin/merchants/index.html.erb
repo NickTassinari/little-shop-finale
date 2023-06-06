@@ -5,7 +5,7 @@
   <ol>
     <% @merchants.top_5_merchants.each do |merchant| %>
       <li><%= link_to merchant.name, admin_merchant_path(merchant) %>
-        <%= "Total Revenue: #{number_to_currency(merchant.tot_revenue / 100)}" %></li>
+        <%= "Total Revenue: #{number_to_currency(merchant.tot_revenue&. / 100)}" %></li>
     <% end %>
 </section>
 
