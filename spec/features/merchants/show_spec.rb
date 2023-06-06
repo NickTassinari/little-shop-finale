@@ -68,5 +68,19 @@ RSpec.describe "Merchant Dashboard Index Page" do
         expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
       end
     end
+
+    it "displays items to ship in order from oldest to newest and formats the date" do 
+      ship_data
+
+      visit merchant_dashboard_path(@merchant)
+
+      within("#items_to_ship") do 
+        expect(page).to have_content("#{@invoice_1.created_at.strftime('%A, %B%e, %Y')}")
+        expect(page).to have_content("#{@invoice_2.created_at.strftime('%A, %B%e, %Y')}")
+        link_1 = find_link("#{@invoice_1.id}")
+        link_2 = find_link("#{@invoice_2.id}")
+        expect(link_1).to appear_before(link_2)
+      end
+    end
   end
 end
