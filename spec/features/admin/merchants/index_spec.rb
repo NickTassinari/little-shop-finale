@@ -69,7 +69,7 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
     it "can display names of top 5 merchants by total revenue" do
       top_merch_data
       visit admin_merchants_path
-
+      
       within "#top_merchants" do
         expect(page).to have_content("Top 5 Merchants")
         expect(@merch1.name).to appear_before(@merch6.name)
@@ -78,6 +78,25 @@ RSpec.describe "Admin Merchant Index Page", type: :feature do
         expect(@merch4.name).to appear_before(@merch5.name)
         expect(@merch5.name).to_not appear_before(@merch1.name)
         expect(page).to_not have_content(@merch3.name)
+        expect(page).to have_link(@merch1.name)
+        expect(page).to have_link(@merch6.name)
+        expect(page).to_not have_link(@merch3.name)
+      end
+    end
+  end
+  
+  describe "top merchants best day" do
+    it "displays the best day for each of the top five merchants" do
+      top_merch_data
+      visit admin_merchants_path
+      within "#top_merchants" do
+        expect(page).to have_content(@merch1.name)
+        expect(page).to have_content("$1,900.00")
+        expect(page).to have_content(@merch6.name)
+        expect(page).to have_content("1,600.00")
+        expect("$1,900.00").to appear_before("1,600.00")
+        expect(page).to have_content("Top selling date for #{@merch1.name} was #{@merch1.best_day.strftime('%B %d, %Y')}")
+        expect(page).to have_content("Top selling date for #{@merch6.name} was #{@merch6.best_day.strftime('%B %d, %Y')}")
       end
     end
   end

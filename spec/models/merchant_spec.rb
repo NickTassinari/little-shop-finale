@@ -36,6 +36,15 @@ RSpec.describe Merchant, type: :model do
 
       expect(@merchant.invoices_to_ship).to eq([@invoice_item_1, @invoice_item_2])
     end
+
+    it "#best_day" do
+      top_merch_data
+      expect(@merch1.best_day.strftime('%B %d, %Y')).to eq(@invoice1.created_at.strftime('%B %d, %Y'))
+      expect(@merch6.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
+      expect(@merch2.best_day.strftime('%B %d, %Y')).to eq(@invoice1.created_at.strftime('%B %d, %Y'))
+      expect(@merch4.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
+      expect(@merch5.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
+    end
   end 
 
   describe "Class Methods" do
