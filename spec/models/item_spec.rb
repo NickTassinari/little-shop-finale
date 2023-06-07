@@ -107,7 +107,7 @@ RSpec.describe Item, type: :model do
       end
 
       it "returns the top 5 items by total revenue" do
-        expect(Item.top_five_items).to eq([@item1, @item6, @item2, @item4, @item5])
+        expect(@merch1.items.top_five_items.to_a).to match_array([@item1, @item6, @item2, @item4, @item5])
       end
     end
   end

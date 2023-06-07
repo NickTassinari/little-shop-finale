@@ -162,8 +162,11 @@ RSpec.describe "Merchant Items Index Page" do
         expect(@item4.name).to appear_before(@item5.name)
         expect(@item5.name).to_not appear_before(@item1.name)
         expect(page).to_not have_content(@item3.name)
-        expect(page).to have_link(@merch1.name)
-        expect(page).to_not have_link(@merch2.name)
+        expect(page).to have_link(@item1.name)
+        expect(page).to have_link(@item6.name)
+        expect(page).to have_link(@item2.name)
+        expect(page).to have_link(@item4.name)
+        expect(page).to_not have_link(@item3.name)
       end
     end
   end
