@@ -1,8 +1,8 @@
 <body style="margin: 30px;">
 
-<h1>
-  <%= @merchant.name %> Dashboard 
-</h1>
+<h1> <%= @merchant.name %> Dashboard </h1>
+<img src = <%= @merchant_random.url %>>
+
 <table style="float: right;">
   <tr>
     <th>
@@ -15,8 +15,6 @@
     </th>
   </tr>
 </table>
-<h1> <%= @merchant.name %> Dashboard </h1>
-<img src = <%= @merchant_random.url %>>
 
 <h2>Top Five Customers</h2>
 <div id= "top_customers">
