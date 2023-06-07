@@ -3,6 +3,7 @@
 ## Background and Description
 
 "Little Esty Shop" is a group project that required us to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
+This site makes use of a PostgreSQL database seeded by CSV data in order to efficiently store and retrieve data for a hypothetical online commerce platform. The work was split between the four contributors listed below in 9 days.
 
 ## Collaborators
 ___
@@ -13,19 +14,21 @@ ___
 
 ## Work Completed
 ___
+- [On Render](https://little-shop-7-qkg4.onrender.com/)
 - [Schema Diagram](https://dbdiagram.io/d/6477a4dc722eb774942b1003)
 - [Github Project Board](https://github.com/users/Jredish11/projects/6)
 - Utilized ActiveRecord joins, aggregates, and grouping to fulfill user story functionality
 - 100% test coverage for models and features
 - Implemented FactoryBot and Faker to support testing
-- Create  rake tasks to load data from CSVs into our database
+- Create rake tasks to load data from CSVs into our database
 - Includes multiple API calls to the Unsplash library for images
 
 ## Future Refactoring
 ---
-1. Make module for similar model methods
+1. Make module for similar model methods.
 1. Styling to optimize user experience.
-1. Create normalized test data across all test files
-1. Utilize more partials to DRY up view code
-1. Full name method
-1. Refactor test data to be re-used
+1. Create normalized test data across all test files.
+1. Utilize more partials to DRY up view code.
+1. Full name method.
+1. Refactor test data to be re-used.
+1. More robust landing page that has more links to navigate through site.
