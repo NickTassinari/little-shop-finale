@@ -76,18 +76,15 @@ RSpec.describe Item, type: :model do
     describe ".top_five_items" do
       before(:each) do
         @merch1 = create(:merchant, status: 1)
-
         @item1 = create(:item, merchant: @merch1)
         @item2 = create(:item, merchant: @merch1)
         @item3 = create(:item, merchant: @merch1)
         @item4 = create(:item, merchant: @merch1)
         @item5 = create(:item, merchant: @merch1)
         @item6 = create(:item, merchant: @merch1)
-
         @invoice1 = create(:invoice)
         @invoice2 = create(:invoice)
         @invoice3 = create(:invoice)
-
         @invitm1 = create(:invoice_item, invoice: @invoice1, item: @item1, quantity: 100, unit_price: 1000)
         @invitm2 = create(:invoice_item, invoice: @invoice1, item: @item2, quantity: 90, unit_price: 1000)
         @invitm3 = create(:invoice_item, invoice: @invoice1, item: @item3, quantity: 40, unit_price: 1000)
@@ -100,7 +97,6 @@ RSpec.describe Item, type: :model do
         @invitm10 = create(:invoice_item, invoice: @invoice3, item: @item4, quantity: 5, unit_price: 1000)
         @invitm11 = create(:invoice_item, invoice: @invoice3, item: @item5, quantity: 30, unit_price: 1000)
         @invitm12 = create(:invoice_item, invoice: @invoice3, item: @item6, quantity: 70, unit_price: 1000)
-
         @transaction1 = create(:transaction, invoice: @invoice1, result: "success")
         @transaction2 = create(:transaction, invoice: @invoice2, result: "success")
         @transaction3 = create(:transaction, invoice: @invoice3, result: "success")
@@ -108,6 +104,36 @@ RSpec.describe Item, type: :model do
 
       it "returns the top 5 items by total revenue" do
         expect(@merch1.items.top_five_items.to_a).to match_array([@item1, @item6, @item2, @item4, @item5])
+      end
+    end
+
+    describe ".item_best_day" do
+      it "returns the top selling day for an item" do
+        @merch1 = create(:merchant, status: 1)
+        @item1 = create(:item, merchant: @merch1)
+        @item2 = create(:item, merchant: @merch1)
+        @item3 = create(:item, merchant: @merch1)
+        @item4 = create(:item, merchant: @merch1)
+        @item5 = create(:item, merchant: @merch1)
+        @item6 = create(:item, merchant: @merch1)
+        @invoice1 = create(:invoice)
+        @invoice2 = create(:invoice)
+        @invoice3 = create(:invoice)
+        @invitm1 = create(:invoice_item, invoice: @invoice1, item: @item1, quantity: 100, unit_price: 1000)
+        @invitm2 = create(:invoice_item, invoice: @invoice2, item: @item1, quantity: 90, unit_price: 1000)
+        @invitm3 = create(:invoice_item, invoice: @invoice3, item: @item1, quantity: 40, unit_price: 1000)
+        @invitm5 = create(:invoice_item, invoice: @invoice1, item: @item2, quantity: 90, unit_price: 1000)
+        @invitm6 = create(:invoice_item, invoice: @invoice2, item: @item2, quantity: 500, unit_price: 1000)
+        @invitm7 = create(:invoice_item, invoice: @invoice3, item: @item2, quantity: 90, unit_price: 1000)
+        @transaction1 = create(:transaction, invoice: @invoice1, result: "success")
+        @transaction2 = create(:transaction, invoice: @invoice2, result: "success")
+        @transaction3 = create(:transaction, invoice: @invoice3, result: "success")
+        @invoice1.update(created_at: "01/02/2023")
+        @invoice2.update(created_at: "01/03/2023")
+        @invoice3.update(created_at: "01/04/2023")
+
+        expect(@item1.item_best_day).to eq("01/02/2023")
+        expect(@item2.item_best_day).to eq("01/03/2023")
       end
     end
   end
