@@ -16,12 +16,6 @@
   </tr>
 </table>
 
-<h2>Top Five Customers</h2>
-<div id= "top_customers">
-<% @merchant.top_five_customers.each do |customer| %>
-  <p><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases"%></p>
-<% end %></div>
-
 <table style="float: left;">
   <tr>
     <th>
