@@ -120,6 +120,7 @@ RSpec.describe "Merchant Items Index Page" do
   describe "Top 5 most popular items" do
     before(:each) do
       @merch1 = create(:merchant, status: 1)
+      @merch2 = create(:merchant, status: 1)
 
       @item1 = create(:item, merchant: @merch1)
       @item2 = create(:item, merchant: @merch1)
@@ -162,8 +163,7 @@ RSpec.describe "Merchant Items Index Page" do
         expect(@item5.name).to_not appear_before(@item1.name)
         expect(page).to_not have_content(@item3.name)
         expect(page).to have_link(@merch1.name)
-        expect(page).to have_link(@merch6.name)
-        expect(page).to_not have_link(@merch3.name)
+        expect(page).to_not have_link(@merch2.name)
       end
     end
   end
