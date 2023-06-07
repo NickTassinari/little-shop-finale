@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   belongs_to :merchant
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
+  has_many :transactions, through: :invoices
 
   validates :name, presence: true
   validates :description, presence: true
@@ -15,6 +16,15 @@ class Item < ApplicationRecord
   
   def self.disabled_items
     where("status = 1")
+  end
+
+  def self.top_five_items
+    joins(:transactions)
+    .where("transactions.result = ?", "success")
+    .group(:id)
+    .select('items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .order('total_revenue DESC')
+    .limit(5)
   end
 
   def num_sold(invoice)

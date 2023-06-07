@@ -34,5 +34,16 @@ RSpec.describe "Merchant Items New Page" do
         expect(page).to have_content("Shiny New Item")
       end
     end
+    it "re renders the item edit page if the form is not filled out completely" do
+      visit new_merchant_item_path(@merchant_1)
+      fill_in 'Name', with: ''
+      fill_in 'Description', with: 'Super Duper Shiny'
+      fill_in 'Current Price', with: 20000
+
+      click_button("Submit")
+
+      expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+      expect(page).to have_content("Item creation failed")
+    end
   end
 end
