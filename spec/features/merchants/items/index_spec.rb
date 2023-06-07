@@ -100,7 +100,6 @@ RSpec.describe "Merchant Items Index Page" do
     end 
     it "displays a link to create a new item" do
       visit merchant_items_path(@merchant_1)
-      save_and_open_page
 
       within "#new_item_link" do
         expect(page).to have_link("New Item")

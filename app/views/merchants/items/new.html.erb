@@ -1,6 +1,6 @@
 <h1>Create New Item</h1>
 
-<%= form_with model: @merchant, local: true do |form|  %>
+<%= form_with model: [@merchant, @item], local: true do |form|  %>
   <p><%= form.label :name %>
   <%= form.text_field :name %></p>
   <p><%= form.label :description %>
@@ -8,5 +8,4 @@
   <p><%= form.label :unit_price, "Current Price" %>
   <%= form.number_field :unit_price %></p>
   <p><%= form.submit "Submit"  %>
-  
 <% end %>

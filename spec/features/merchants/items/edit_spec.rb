@@ -38,7 +38,6 @@ RSpec.describe "Merchant Items Edit Page" do
 
     it "displays a flash message when the form is incomplete" do 
       visit edit_merchant_item_path(@merchant_1, @item_1)
-      save_and_open_page
 
       fill_in("Name", with: "")
       fill_in("Description", with: "It's Nice")
