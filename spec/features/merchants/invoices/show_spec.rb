@@ -9,7 +9,6 @@ RSpec.describe "Merchants Invoice Show Page" do
   it "has information related to the invoice" do 
     visit "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}"
     # visit merchant_invoices_path(@merchant, @invoice_3)
-    save_and_open_page
     within "#invoice_info" do 
 
     expect(page).to have_content("Invoice ##{@invoice_3.id}")
