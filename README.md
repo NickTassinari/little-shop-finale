@@ -17,11 +17,12 @@ ___
 - [On Render](https://little-shop-7-qkg4.onrender.com/)
 - [Schema Diagram](https://dbdiagram.io/d/6477a4dc722eb774942b1003)
 - [Github Project Board](https://github.com/users/Jredish11/projects/6)
-- Utilized ActiveRecord joins, aggregates, and grouping to fulfill user story functionality
+- Utilized advanced ActiveRecord joins, aggregates, and grouping to fulfill user story functionality
+- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
 - 100% test coverage for models and features
 - Implemented FactoryBot and Faker to support testing
 - Create rake tasks to load data from CSVs into our database
-- Includes multiple API calls to the Unsplash library for images
+- Includes consuming a public API for images while utilizing POROs as a way to apply OOP principles to organize code. Used the [Unsplash](https://unsplash.com/ developers) API.
 
 ## Future Refactoring
 ---
