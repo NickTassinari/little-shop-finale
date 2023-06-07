@@ -22,7 +22,7 @@ ___
 - 100% test coverage for models and features
 - Implemented FactoryBot and Faker to support testing
 - Create rake tasks to load data from CSVs into our database
-- Includes consuming a public API for images while utilizing POROs as a way to apply OOP principles to organize code. Used the [Unsplash](https://unsplash.com/ developers) API.
+- Includes consuming a public API for images while utilizing POROs as a way to apply OOP principles to organize code. Used the [Unsplash](https://unsplash.com/developers) API.
 
 ## Future Refactoring
 ---
