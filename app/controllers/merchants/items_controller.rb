@@ -2,7 +2,8 @@ class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @disabled = Item.disabled_items
-    @enabled = Item.enabled_items    
+    @enabled = Item.enabled_items
+    @top_five_items = @merchant.items.top_five_items
   end
 
   def new
@@ -19,7 +20,7 @@ class Merchants::ItemsController < ApplicationController
       redirect_to merchant_items_path(merchant)
     else
       flash[:alert] = "Item creation failed"
-      redirect_to merchant_items_path(merchant)
+      redirect_to new_merchant_item_path(merchant)
     end
   end
 
