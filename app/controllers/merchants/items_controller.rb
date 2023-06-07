@@ -1,8 +1,27 @@
 class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
+
     @disabled = Item.disabled_items
     @enabled = Item.enabled_items    
+  end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new
+  end
+
+  def create
+    merchant = Merchant.find(params[:merchant_id])
+    item = merchant.items.new(item_params)
+
+    if item.save
+      flash[:notice] = "Item created successfully"
+      redirect_to merchant_items_path(merchant)
+    else
+      flash[:alert] = "Item creation failed"
+      redirect_to merchant_items_path(merchant)
+    end
   end
 
   def show

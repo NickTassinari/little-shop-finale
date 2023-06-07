@@ -89,4 +89,31 @@ RSpec.describe "Merchant Items Index Page" do
       end
     end
   end
+
+  describe "new item link" do
+    before(:each) do 
+      @merchant_1 = create(:merchant)
+      @item_1 = create(:item, merchant: @merchant_1, status: :enabled)
+      @item_2 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_3 = create(:item, merchant: @merchant_1, status: :disabled)
+      @item_4 = create(:item, merchant: @merchant_1, status: :enabled)
+    end 
+    it "displays a link to create a new item" do
+      visit merchant_items_path(@merchant_1)
+
+      within "#new_item_link" do
+        expect(page).to have_link("New Item")
+      end
+    end
+
+    it "user clicks link and sent to new item page" do
+      visit merchant_items_path(@merchant_1)
+      
+      within "#new_item_link" do
+
+      click_link("New Item")
+      expect(current_path).to eq(new_merchant_item_path(@merchant_1))
+      end
+    end
+  end
 end
