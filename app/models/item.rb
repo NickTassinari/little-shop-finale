@@ -27,6 +27,16 @@ class Item < ApplicationRecord
     .limit(5)
   end
 
+  def item_best_day
+    invoices.joins(:transactions)
+    .where("transactions.result = ?", "success")
+    .select('invoices.*, invoice_items.quantity As sales')
+    .group('invoices.id, invoices.created_at, sales')
+    .order(sales: :desc)
+    .first
+    .created_at
+  end
+
   def num_sold(invoice)
     invoice_items.where(invoice_id: invoice.id).pluck(:quantity).first
   end
