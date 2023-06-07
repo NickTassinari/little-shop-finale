@@ -1,7 +1,6 @@
 class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-
     @disabled = Item.disabled_items
     @enabled = Item.enabled_items    
   end
@@ -27,6 +26,7 @@ class Merchants::ItemsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
+    @item_photo = PhotoBuilder.item_photo(@item.name)
   end
 
   def edit
