@@ -15,7 +15,12 @@
       <h1>Little Esty Shop</h1>
     </div>
     <div>
-      <figure><img src="<%= @app_logo.small_url %>"></figure>
+      <figure>
+        <img src="<%= @app_logo.url %>">
+        <figcaption>
+          <%= "#{@app_logo.likes} likes"%>
+        </figcaption>
+      </figure>
     </div>
   </header>
 
