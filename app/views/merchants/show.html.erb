@@ -1,20 +1,20 @@
 <h1>
   <%= @merchant.name %> Dashboard 
 </h1>
-<h2>Top Five Customers</h2>
+
+<h2 style="text-align: right; width:50%; display; flex; justify-content: space-between;">Top Five Customers</h2>
 <div id= "top_customers">
-<% @merchant.top_five_customers.each do |customer| %>
-  <p><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases"%></p>
+  <% @merchant.top_five_customers.each do |customer| %>
+    <p style="text-align: right; width:50%; display; flex; justify-content: space-between;"><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases"%></p>
 <% end %></div>
 
 <div id= "items_to_ship">
-<h2>Items Ready To Ship</h2>
-  <%  @merchant.invoices_to_ship.each do |invoice_item| %>
-      <p><%= invoice_item.item.name %></p>
-      <p><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></p> 
-      <p><%= invoice_item.invoice.created_at.strftime('%A, %B%e, %Y') %></p>
-  <% end %>  
-
+  <h2 style="text-align: left; width:49%; display; flex; justify-content: space-between;">Items Ready To Ship</h2>
+    <% @merchant.invoices_to_ship.each do |invoice_item| %>
+      <p style="text-align: left; width:49%; display; flex; justify-content: space-between;"><%= invoice_item.item.name %></p>
+      <p style="text-align: left; width:49%; display; flex; justify-content: space-between;"><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></p> 
+      <p style="text-align: left; width:49%; display; flex; justify-content: space-between;"><%= invoice_item.invoice.created_at.strftime('%A, %B%e, %Y') %></p>
+    <% end %>  
 </div>
 
 <p><%= link_to "Items Index", "/merchants/#{@merchant.id}/items" %></p>
