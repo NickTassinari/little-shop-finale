@@ -19,24 +19,12 @@ class Item < ApplicationRecord
   end
 
   def self.top_five_items
-    joins(invoices: [:transactions, :invoice_items])
-    .where(transactions: { result: "success" })
+    joins(:transactions)
+    .where("transactions.result = ?", "success")
     .group(:id)
     .select('items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
     .order('total_revenue DESC')
     .limit(5)
-    # Item.joins(transactions: [:invoice_items, :invoices])
-    #     .where("transactions.result = ?", "success")
-    #     .select("items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue")
-    #     .group("items.id")
-    #     .order("total_revenue")
-    #     .limit(5)
-    # joins(invoices: [:invoice_items, :transactions])
-    #   .where(transactions: { result: "success" })
-    #   .group(:id)
-    #   .select('items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
-    #   .order('total_revenue DESC')
-    #   .limit(5)
   end
 
   def num_sold(invoice)
