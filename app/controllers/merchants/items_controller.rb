@@ -1,9 +1,9 @@
 class Merchants::ItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-
     @disabled = Item.disabled_items
-    @enabled = Item.enabled_items    
+    @enabled = Item.enabled_items
+    @top_five_items = @merchant.items.top_five_items
   end
 
   def new
