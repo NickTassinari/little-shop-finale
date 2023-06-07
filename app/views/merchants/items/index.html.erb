@@ -1,9 +1,14 @@
 <h2>My Items</h2>
 
-
 <section id="top_items">
   <h3>Top 5 Items</h3>
-  <ul> </ul>
+  <ol>
+  <% @merchant.top_five_items.each do |item| %>
+    <div id="top_item_<%= item.id %>">
+      <li><%= link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.tot_revenue/100) %> in sales</li>
+    </div>
+  <% end %>
+</ol>
 </section>
 
 <section id="enabled_items">
