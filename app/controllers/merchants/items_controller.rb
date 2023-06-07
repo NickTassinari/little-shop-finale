@@ -20,7 +20,7 @@ class Merchants::ItemsController < ApplicationController
       redirect_to merchant_items_path(merchant)
     else
       flash[:alert] = "Item creation failed"
-      redirect_to merchant_items_path(merchant)
+      redirect_to new_merchant_item_path(merchant)
     end
   end
 
