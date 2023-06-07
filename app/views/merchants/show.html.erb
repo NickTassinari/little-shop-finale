@@ -1,21 +1,38 @@
+<body style="margin: 30px;">
+
 <h1> <%= @merchant.name %> Dashboard </h1>
 <img src = <%= @merchant_random.url %>>
 
-<h2>Top Five Customers</h2>
-<div id= "top_customers">
-<% @merchant.top_five_customers.each do |customer| %>
-  <p><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases"%></p>
-<% end %></div>
+<table style="float: right;">
+  <tr>
+    <th>
+      <h2 style="width: 100%;">Top Five Customers</h2>
+      <div id= "top_customers">
+        <% @merchant.top_five_customers.each do |customer| %>
+          <p style="width:100%;"><%= "#{customer.first_name} #{customer.last_name} "%> <br> <%= "- #{customer.transaction_count} purchases"%></p>
+        <% end %>
+      </div>
+    </th>
+  </tr>
+</table>
 
-<div id= "items_to_ship">
-<h2>Items Ready To Ship</h2>
-  <%  @merchant.invoices_to_ship.each do |invoice_item| %>
-      <p><%= invoice_item.item.name %></p>
-      <p><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></p> 
-      <p><%= invoice_item.invoice.created_at.strftime('%A, %B%e, %Y') %></p>
-  <% end %>  
+<table style="float: left;">
+  <tr>
+    <th>
+      <div id= "items_to_ship">
+        <h2 style="width:100%;">Items Ready To Ship</h2>
+          <% @merchant.invoices_to_ship.each do |invoice_item| %>
+            <p style="width:100%;"><%= invoice_item.item.name %></p>
+            <p style="width:100%;"><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></p> 
+            <p style="width:100%;"><%= invoice_item.invoice.created_at.strftime('%A, %B%e, %Y') %></p>
+          <% end %>  
+      </div>
+    </th>
+  </tr>
 
-</div>
+<footer> 
+  <p><%= link_to "Items Index", "/merchants/#{@merchant.id}/items" %></p>
+  <p><%= link_to "Invoices Index", "/merchants/#{@merchant.id}/invoices" %></p>
+</footer>
+</body>
 
-<p><%= link_to "Items Index", "/merchants/#{@merchant.id}/items" %></p>
-<p><%= link_to "Invoices Index", "/merchants/#{@merchant.id}/invoices" %></p>

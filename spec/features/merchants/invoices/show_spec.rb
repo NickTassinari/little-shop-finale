@@ -11,7 +11,7 @@ RSpec.describe "Merchants Invoice Show Page" do
     # visit merchant_invoices_path(@merchant, @invoice_3)
     within "#invoice_info" do 
 
-    expect(page).to have_content("Invoice ID: #{@invoice_3.id}")
+    expect(page).to have_content("Invoice ##{@invoice_3.id}")
     expect(page).to have_content("Invoice Status: #{@invoice_3.status}")
     expect(page).to have_content("Created on: #{@invoice_3.created_at.strftime("%A, %B %d, %Y")}")
     expect(page).to have_content("Customer Name: #{@invoice_3.customer.first_name} #{@invoice_3.customer.last_name}")
@@ -20,16 +20,28 @@ RSpec.describe "Merchants Invoice Show Page" do
   #user story 16
   it "has info of items on the invoice" do 
     visit "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}"
-    within "#item_info" do 
 
-      expect(page).to have_content("Name: #{@item_1.name}")
-      expect(page).to have_content("Quantity: #{@invoice_item_3.quantity}")
-      expect(page).to have_content("Unit Price: $20.00")
-      expect(page).to have_content("Status: #{@invoice_item_3.status}")
+    within "#item_name" do 
+      expect(page).to have_content("#{@item_1.name}")
+    end 
+
+    within "#item_quan" do 
+      expect(page).to have_content("#{@invoice_item_3.quantity}")
+    end 
+    
+    within "#uni_price" do 
+      expect(page).to have_content("$20.00")
+    end 
+
+    within "#status" do 
+      expect(page).to have_content("#{@invoice_item_3.status}")
+    end 
+
+    within "#item_info" do 
       expect(page).to_not have_content(@merchant_2.name)
       expect(page).to_not have_content(@invoice_item_7.quantity)
       expect(page).to_not have_content(@invoice_7.status)
-    end
+    end 
   end
 
   #user story 17 
@@ -53,16 +65,16 @@ RSpec.describe "Merchants Invoice Show Page" do
       
       expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
       
-      within "#item_info" do 
-        expect(page).to have_content("Status: packaged")
+      within "#status" do 
+        expect(page).to have_content("packaged")
       end
 
       page.select("shipped", from: :invoice_item_status)
       click_button("Update Item Status")
       expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
       
-      within "#item_info" do 
-        expect(page).to have_content("Status: shipped")
+      within "#status" do 
+        expect(page).to have_content("shipped")
       end 
   end
 end

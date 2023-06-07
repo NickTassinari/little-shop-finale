@@ -1,24 +1,38 @@
-<div id= "invoice_info">
-  <p> Invoice ID: <%= @invoice.id  %></p>
-  <p> Invoice Status: <%= @invoice.status  %></p>
-  <p> Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
-  <p> Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-</div>
+<%= tag.h1 @merchant.name %>
 
+<div class="invoice_info">
+  <div id= "invoice_info">
+    <p style="text-align: center; font-weight: bold;"> Invoice #<%= @invoice.id  %></p>
+    <p> Invoice Status: <%= @invoice.status  %></p>
+    <p> Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
+    <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>
+    <p> Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+  </div>
+</div>
 <div id= "item_info">
-    <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
-      <p>Name: <%=invoice_item.item.name%></p>
-      <p>Quantity: <%= invoice_item.quantity %></p>
-      <p>Unit Price: <%= number_to_currency(invoice_item.unit_price&. / 100.00) %><p>
-      <p>Status: <%= invoice_item.status %></p>
+  <p style="font-weight: bold; font-size: 1.25em;">Items on This Invoice</p>
+    <table style="border: 2px solid black; width: 100%; border-collapse: collapse;">
+      <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
+        <tr>
+          <th style="border: 1px solid black; width: 25%; height: 70px;">Name: </th>
+          <th style="border: 1px solid black; width: 25%; height: 70px;">Quantity: </th>
+          <th style="border: 1px solid black; width: 25%; height: 70px;">Unit Price: </th>
+          <th style="border: 1px solid black; width: 25%; height: 70px;">Status: </th>
+        </tr>
+        <tr>
+          <th id="item_name", style="border: 1px solid black; width: 25%;"><%=invoice_item.item.name%></th>
+          <th id="item_quan", style="border: 1px solid black; width: 25%;"><%= invoice_item.quantity %></th>
+          <th id="uni_price", style="border: 1px solid black; width: 25%;"><%= number_to_currency(invoice_item.unit_price&. / 100.00) %></th>
+          <th id="status", style="border: 1px solid black; width: 25%;"><%= invoice_item.status %></th>
+        </tr>
 </div>
+    </table>
 
-      <div id= "update_status">
-          <p><%= form_with model: [@merchant, invoice_item], method: :patch, local: true do |form| %>
-              <%= form.label :status, "Status:"  %>
-              <%= form.select :status, ["pending", "packaged", "shipped"] %>
-              <%= form.submit "Update Item Status" %>
-          <% end %>    
-      </div>
-    <% end %>
-<p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %>
+<div id= "update_status", style="border: 2px solid black; width: 25%;">
+    <p style="border: 1px solid black; width: 50%;"><%= form_with model: [@merchant, invoice_item], method: :patch, local: true do |form| %>
+      <%= form.label :status, "Status:"  %>
+      <%= form.select :status, ["pending", "packaged", "shipped"] %>
+      <%= form.submit "Update Item Status" %>
+    <% end %>    
+</div>
+<% end %>
