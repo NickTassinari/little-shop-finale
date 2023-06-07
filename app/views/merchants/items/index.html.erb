@@ -3,7 +3,9 @@
 
 <section id="top_items">
   <h3>Top 5 Items</h3>
-  <ul> </ul>
+  <% @top_five_items.each do |item| %>
+    <p> <%= link_to item.name, merchant_item_path(@merchant, item) %><%= "Total Revenue: "%> </p>
+  <% end %>
 </section>
 
 <section id="enabled_items">
