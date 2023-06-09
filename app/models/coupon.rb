@@ -17,4 +17,8 @@ class Coupon < ApplicationRecord
       "#{discount}%"
     end
   end
+
+  def times_used
+    self.invoices.joins(:transactions).where(transactions: {result: "success"}, invoices: {coupon_id: self.id}).uniq.count
+  end
 end

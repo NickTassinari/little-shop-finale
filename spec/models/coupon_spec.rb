@@ -30,5 +30,27 @@ RSpec.describe Coupon, type: :model do
       expect(@coupon_5.display_discount).to eq("$40")
       expect(@coupon_3.display_discount).to eq("50%")
     end
+
+    it "#times_used" do 
+      @item_1 = Item.create!(name: "Pepperoni", description: "Spicy boi", merchant: @merchant, unit_price: 2000)
+      @custie_1 = Customer.create!(first_name: "Terry", last_name: "Tromboli")
+      @custie_2 = Customer.create!(first_name: "Tony", last_name: "Tramberelli")
+      @invoice_1 = Invoice.create!(customer_id: @custie_1.id, status: 2, coupon_id: @coupon_5.id)
+      @invoice_2 = Invoice.create!(customer_id: @custie_1.id, status: 2, coupon_id: @coupon_5.id)
+      @invoice_3 = Invoice.create!(customer_id: @custie_1.id, status: 2, coupon_id: @coupon_5.id)
+      @invoice_4 = Invoice.create!(customer_id: @custie_2.id, status: 2, coupon_id: @coupon_4.id)
+      @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+      @invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+      @invoice_item_3 = InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+      @invoice_item_4 = InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+      @transaction_1 = create(:transaction, result: "success", invoice_id: @invoice_1.id)
+      @transaction_2 = create(:transaction, result: "success", invoice_id: @invoice_2.id)
+      @transaction_3 = create(:transaction, result: "success", invoice_id: @invoice_3.id)
+      @transaction_4 = create(:transaction, result: "success", invoice_id: @invoice_4.id)
+
+      expect(@coupon_5.times_used).to eq(3)
+      expect(@coupon_4.times_used).to eq(1)
+
+    end
   end
 end
