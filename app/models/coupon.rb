@@ -8,4 +8,13 @@ class Coupon < ApplicationRecord
   validates_uniqueness_of :coupon_code 
   belongs_to :merchant 
   has_many :invoices 
+
+
+  def display_discount
+    if discount_type == "dollars"
+      "$#{discount}"
+    else
+      "#{discount}%"
+    end
+  end
 end

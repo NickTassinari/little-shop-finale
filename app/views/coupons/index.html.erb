@@ -1,0 +1,8 @@
+<h1> Coupons: </h1>
+
+<% @coupons.each do |coupon| %>
+  <div id="coupon-<%=coupon.id%>">
+    <p><%= link_to coupon.name, "/merchants/#{@merchant.id}/coupons/#{coupon.id}"%>
+    <p>Discount Amount: <%=coupon.display_discount%></p>
+<% end %>
+  </div>

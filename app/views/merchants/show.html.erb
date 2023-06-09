@@ -1,7 +1,6 @@
 <body style="margin: 30px;">
 
 <h1> <%= @merchant.name %> Dashboard </h1>
-<img src = <%= @merchant_random.url %>>
 
 <table style="float: right;">
   <tr>
@@ -30,6 +29,7 @@
     </th>
   </tr>
 
+  <p><%= link_to "View Coupons", merchant_coupons_path(@merchant) %></p>
 <footer> 
   <p><%= link_to "Items Index", "/merchants/#{@merchant.id}/items" %></p>
   <p><%= link_to "Invoices Index", "/merchants/#{@merchant.id}/invoices" %></p>
