@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
-    resources :coupons, only: [:index]
+    resources :coupons, only: [:index, :show]
     resources :items, except: [:destroy], controller: "merchants/items" do
       patch "status_update", on: :member
     end
