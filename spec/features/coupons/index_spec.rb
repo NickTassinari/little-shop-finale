@@ -28,4 +28,20 @@ RSpec.describe "Coupon Index Page" do
       expect(page).to have_content("Discount Amount: $40")
     end
   end 
-end
+
+  it "has a link to coupon show page that is the coupons name" do 
+    
+    visit merchant_coupons_path(@merchant)
+    within("#coupon-#{@coupon_1.id}") do 
+      click_link "#{@coupon_1.name}"
+    end
+    expect(current_path).to eq("/merchants/#{@merchant.id}/coupons/#{@coupon_1.id}")
+
+    visit merchant_coupons_path(@merchant)
+
+    within("#coupon-#{@coupon_2.id}") do 
+      click_link "#{@coupon_2.name}"
+    end
+    expect(current_path).to eq("/merchants/#{@merchant.id}/coupons/#{@coupon_2.id}")
+  end
+end 
