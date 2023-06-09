@@ -18,7 +18,8 @@ RSpec.describe Coupon, type: :model do
   end
 
   describe "relationships" do 
-
+    it { should have_many :invoices }
+    it { should belong_to :merchant }
   end
 
   describe "instance methods" do 
