@@ -1,0 +1,8 @@
+<h1> Coupons: </h1>
+
+<% @coupons.each do |coupon| %>
+  <div id="coupon-<%=coupon.id%>">
+    <%= coupon.name %>
+    <p>Discount Amount: <%=coupon.display_discount%></p>
+<% end %>
+  </div>
