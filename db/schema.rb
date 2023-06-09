@@ -19,10 +19,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_185818) do
     t.string "discount_type"
     t.integer "discount"
     t.string "coupon_code"
-    t.bigint "merchants_id", null: false
+    t.bigint "merchant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["merchants_id"], name: "index_coupons_on_merchants_id"
+    t.index ["merchant_id"], name: "index_coupons_on_merchant_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_185818) do
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
-  add_foreign_key "coupons", "merchants", column: "merchants_id"
+  add_foreign_key "coupons", "merchants"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "items"
   add_foreign_key "invoices", "customers"
