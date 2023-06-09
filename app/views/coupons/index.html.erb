@@ -6,3 +6,5 @@
     <p>Discount Amount: <%=coupon.display_discount%></p>
 <% end %>
   </div>
+
+<%= link_to "Create New Coupon",  "/merchants/#{@merchant.id}/coupons/new"%>
