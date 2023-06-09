@@ -2,7 +2,7 @@
 
 <% @coupons.each do |coupon| %>
   <div id="coupon-<%=coupon.id%>">
-    <%= coupon.name %>
+    <p><%= link_to coupon.name, "/merchants/#{@merchant.id}/coupons/#{coupon.id}"%>
     <p>Discount Amount: <%=coupon.display_discount%></p>
 <% end %>
   </div>
