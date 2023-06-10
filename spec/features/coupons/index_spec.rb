@@ -52,4 +52,27 @@ RSpec.describe "Coupon Index Page" do
     click_link "Create New Coupon"
     expect(current_path).to eq(new_merchant_coupon_path(@merchant))
   end
+
+  it "displays coupons seperated between active and inactive" do 
+    @coupon_6 = Coupon.create!(name: "Paisano discount", discount_type: "dollars", discount: 40, coupon_code: "SpaghettiMarinar", merchant_id: @merchant.id, status: "deactivated")
+    visit merchant_coupons_path(@merchant)
+
+    within("#active-coupons") do 
+      expect(page).to have_content("#{@coupon_1.name}") 
+      expect(page).to have_content("#{@coupon_2.name}") 
+      expect(page).to have_content("#{@coupon_3.name}") 
+      expect(page).to have_content("#{@coupon_4.name}") 
+      expect(page).to have_content("#{@coupon_5.name}") 
+      expect(page).to_not have_content(@coupon_6.name)
+    end
+
+    within("#deactivated-coupons") do 
+      expect(page).to have_content(@coupon_6.name)
+      expect(page).to_not have_content(@coupon_1.name)
+      expect(page).to_not have_content(@coupon_2.name)
+      expect(page).to_not have_content(@coupon_3.name)
+      expect(page).to_not have_content(@coupon_4.name)
+      expect(page).to_not have_content(@coupon_5.name)
+    end
+  end
 end 
