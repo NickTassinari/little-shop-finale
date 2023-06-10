@@ -3,3 +3,9 @@
 <p>Discount Value: <%= @coupon.discount%></p>
 <p>Status: <%= @coupon.status %></p>
 <p>Coupon Use Count: <%= @coupon.times_used %></p>
+
+<% if @coupon.status == "active" %>
+  <p><%= button_to "Deactivate #{@coupon.name}", method: :patch, merchant: @merchant.id, :deactivate => true %></p>
+<% else %>
+  <p><%= button_to "Activate #{@coupon.name}", method: :patch, merchant: @merchant.id, :activate => true %></p>
+<% end %>
