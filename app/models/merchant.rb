@@ -65,4 +65,6 @@ class Merchant < ApplicationRecord
     coupons.where(status: "active")
   end
 
+ 
+
 end

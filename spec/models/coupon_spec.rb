@@ -52,7 +52,19 @@ RSpec.describe Coupon, type: :model do
 
       expect(@coupon_5.times_used).to eq(3)
       expect(@coupon_4.times_used).to eq(1)
-
     end
+
+    it "#invoices_in_progress" do 
+      @merchant = Merchant.create!(name: "Ricky's Used Crap")
+      @item_1 = Item.create!(name: "Pepperoni", description: "Spicy boi", merchant: @merchant, unit_price: 2000)
+      @custie_1 = Customer.create!(first_name: "Terry", last_name: "Tromboli")
+      @coupon_5 = Coupon.create!(name: "BOGO 50% OFF", discount_type: "percentage", discount: 50, coupon_code: "stuff", merchant_id: @merchant.id, status: "active")
+      @invoice_1 = Invoice.create!(customer_id: @custie_1.id, status: 0, coupon_id: @coupon_5.id)
+      @invoice_2 = Invoice.create!(customer_id: @custie_1.id, status: 2, coupon_id: @coupon_4.id)
+      @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+      @invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+
+      expect(@coupon_5.invoices_in_progress).to eq([@invoice_1])
+    end 
   end
 end

@@ -25,6 +25,19 @@ class CouponsController < ApplicationController
     end
   end
 
+  def update 
+    @merchant = Merchant.find(params[:merchant])
+    @coupon = Coupon.find(params[:id])
+    #refactor could move this into model
+    if params[:deactivate] == "true" && @coupon.invoices_in_progress == []
+      @coupon.update(status: "deactivated")
+    elsif params[:activate] == "true" 
+      @coupon.update(status: "active")
+    end
+    @coupon.save 
+    redirect_to "/merchants/#{@merchant.id}/coupons/#{@coupon.id}"
+  end
+
   private 
 
   def coupon_params
