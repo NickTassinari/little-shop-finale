@@ -46,6 +46,16 @@ RSpec.describe Merchant, type: :model do
       expect(@merch4.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
       expect(@merch5.best_day.strftime('%B %d, %Y')).to eq(@invoice2.created_at.strftime('%B %d, %Y'))
     end
+
+    it "#active_coupons" do 
+      @merchant = Merchant.create!(name: "Ricky's Used Crap")
+      @coupon_1 = Coupon.create!(name: "BOGO 25% OFF", discount_type: "percentage", discount: 25, coupon_code: "Juneteenthbogo", merchant_id: @merchant.id, status: "active")
+      @coupon_2 = Coupon.create!(name: "BOGO 40% OFF", discount_type: "percentage", discount: 40, coupon_code: "Independencebogo", merchant_id: @merchant.id, status: "active")
+      @coupon_3 = Coupon.create!(name: "BOGO 50% OFF", discount_type: "percentage", discount: 50, coupon_code: "Laborbogo", merchant_id: @merchant.id, status: "active")
+      @coupon_4 = Coupon.create!(name: "Twenty whole dollars OFF", discount_type: "dollars", discount: 20, coupon_code: "twentybills", merchant_id: @merchant.id, status: "active")
+
+      expect(@merchant.active_coupons).to eq([@coupon_1, @coupon_2, @coupon_3, @coupon_4])
+    end
   end 
 
   describe "Class Methods" do
