@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
-    resources :coupons, only: [:index, :show, :new, :create]
+    resources :coupons, only: [:index, :show, :new, :create, :update]
     resources :items, except: [:destroy], controller: "merchants/items" do
       patch "status_update", on: :member
     end
     resources :invoices, only: [:index, :show], controller: "merchants/invoices"
     resources :invoice_items, only: [:update]
   end
+
+  patch "/merchants/:id/coupons/:id", to: "coupons#update"
+  post "/merchants/:id/coupons/:id", to: "coupons#update"
 end
