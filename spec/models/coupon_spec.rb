@@ -52,7 +52,6 @@ RSpec.describe Coupon, type: :model do
 
       expect(@coupon_5.times_used).to eq(3)
       expect(@coupon_4.times_used).to eq(1)
-
     end
   end
 end
