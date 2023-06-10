@@ -43,4 +43,15 @@ RSpec.describe "Merchants Coupon Page" do
     expect(current_path).to eq("/merchants/#{@merchant.id}/coupons/#{@coupon_4.id}")
     expect(page).to have_content("Status: active")
   end
+
+  it "has a button to activate inactive coupon" do 
+    @merchant_2 = Merchant.create!(name: "Bubbles Kitty Land")
+    @coupon_6 = Coupon.create!(name: "BOGO 25% OFF", discount_type: "percentage", discount: 25, coupon_code: "catbogo", merchant_id: @merchant.id, status: "deactivated")
+    visit "/merchants/#{@merchant_2.id}/coupons/#{@coupon_6.id}"
+
+    click_button "Activate #{@coupon_6.name}"
+
+    expect(current_path).to eq("/merchants/#{@merchant_2.id}/coupons/#{@coupon_6.id}")
+    expect(page).to have_content("Status: active")
+  end
 end
