@@ -2,7 +2,8 @@ class Coupon < ApplicationRecord
   validates_presence_of :name,
                         :discount_type,
                         :discount,
-                        :coupon_code
+                        :coupon_code,
+                        :status
 
   validates :discount, numericality: { only_integer: true }
   validates_uniqueness_of :coupon_code 
@@ -16,5 +17,10 @@ class Coupon < ApplicationRecord
     else
       "#{discount}%"
     end
+  end
+
+  def times_used
+    self.invoices.joins(:transactions)
+                  .where(transactions: {result: "success"}, invoices: {coupon_id: self.id}).uniq.count
   end
 end

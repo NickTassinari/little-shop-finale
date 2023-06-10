@@ -61,4 +61,8 @@ class Merchant < ApplicationRecord
                   .order("invoices.created_at")
   end
 
+  def active_coupons
+    coupons.where(status: "active")
+  end
+
 end
