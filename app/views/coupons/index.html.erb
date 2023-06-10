@@ -7,4 +7,16 @@
 <% end %>
   </div>
 
+<div id="active-coupons">
+  <h2>Active Coupons: </h2><% @coupons.active_coupons.each do |coupon| %>
+    <p><%= coupon.name %></p>
+  <% end %>
+</div>
+
+<div id="deactivated-coupons">
+  <h2>Deactivated Coupons: </h2><% @coupons.inactive_coupons.each do |coupon| %>
+    <p><%= coupon.name %></p>
+  <% end %>
+</div>
+
 <%= link_to "Create New Coupon",  "/merchants/#{@merchant.id}/coupons/new"%>

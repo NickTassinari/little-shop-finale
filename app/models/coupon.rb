@@ -28,4 +28,14 @@ class Coupon < ApplicationRecord
     invoices.select("invoices.*")
             .where(status: 0)
   end
+
+  def self.active_coupons
+    select("coupons.*")
+    .where(status: "active")
+  end
+
+  def self.inactive_coupons
+    select("coupons.*")
+    .where(status: "deactivated")
+  end
 end
