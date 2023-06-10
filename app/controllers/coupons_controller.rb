@@ -28,7 +28,8 @@ class CouponsController < ApplicationController
   def update 
     @merchant = Merchant.find(params[:merchant])
     @coupon = Coupon.find(params[:id])
-    if params[:deactivate] == "true"
+    #refactor could move this into model
+    if params[:deactivate] == "true" && @coupon.invoices_in_progress == []
       @coupon.update(status: "deactivated")
     elsif params[:activate] == "true" 
       @coupon.update(status: "active")

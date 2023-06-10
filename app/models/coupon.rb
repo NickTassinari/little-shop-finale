@@ -23,4 +23,9 @@ class Coupon < ApplicationRecord
     self.invoices.joins(:transactions)
                   .where(transactions: {result: "success"}, invoices: {coupon_id: self.id}).uniq.count
   end
+
+  def invoices_in_progress
+    invoices.select("invoices.*")
+            .where(status: 0)
+  end
 end

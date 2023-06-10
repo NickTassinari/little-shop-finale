@@ -27,4 +27,20 @@ RSpec.describe "Merchants Coupon Page" do
     expect(current_path).to eq("/merchants/#{@merchant.id}/coupons/#{@coupon_1.id}")
     expect(page).to have_content("Status: deactivated")
   end
+
+  it "cannot deactivate a coupon if invoice is in progress" do 
+    @item_1 = Item.create!(name: "Pepperoni", description: "Spicy boi", merchant: @merchant, unit_price: 2000)
+    @custie_1 = Customer.create!(first_name: "Terry", last_name: "Tromboli")
+    @invoice_1 = Invoice.create!(customer_id: @custie_1.id, status: 0, coupon_id: @coupon_4.id)
+    @invoice_2 = Invoice.create!(customer_id: @custie_1.id, status: 1, coupon_id: @coupon_3.id)
+    @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+    @invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 10, unit_price: 2000, status: 2)
+   
+    visit "/merchants/#{@merchant.id}/coupons/#{@coupon_4.id}"
+
+    click_button "Deactivate #{@coupon_4.name}"
+
+    expect(current_path).to eq("/merchants/#{@merchant.id}/coupons/#{@coupon_4.id}")
+    expect(page).to have_content("Status: active")
+  end
 end
