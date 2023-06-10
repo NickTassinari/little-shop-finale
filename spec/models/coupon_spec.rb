@@ -67,4 +67,15 @@ RSpec.describe Coupon, type: :model do
       expect(@coupon_5.invoices_in_progress).to eq([@invoice_1])
     end 
   end
+
+  describe "class methods" do
+    it "#active_coupons" do 
+      expect(@merchant.coupons.active_coupons).to eq([@coupon_1, @coupon_2, @coupon_3, @coupon_4, @coupon_5,])
+    end 
+    it "#inactive_coupons" do 
+      @coupon_6 = Coupon.create!(name: "Stromboli Zambonis", discount_type: "dollars", discount: 40, coupon_code: "Strom", merchant_id: @merchant.id, status: "deactivated")
+
+      expect(@merchant.coupons.inactive_coupons).to eq([@coupon_6])
+    end
+  end
 end
