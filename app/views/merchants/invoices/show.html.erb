@@ -29,7 +29,7 @@
     </table>
 
 <div id= "invoice_totals">
-  <% if @invoice.coupon == nil %>
+  <% if @invoice.coupon_id == nil %>
     <p>Total Revenue: <%= @invoice.total_revenue %>
   <% else %>
   <p>Subtotal: <%= @invoice.total_revenue %></p>
