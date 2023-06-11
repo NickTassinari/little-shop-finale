@@ -4,7 +4,9 @@ class Merchants::InvoicesController < ApplicationController
   end
   
   def show 
+    @invoice = Invoice.find(params[:id])
+    @customer = @invoice.customer 
+    @invoice_item = InvoiceItem.where(invoice_id: params[:id]).first 
     @merchant = Merchant.find(params[:merchant_id])
-    @invoice = @merchant.invoices.find(params[:id])
   end
 end
