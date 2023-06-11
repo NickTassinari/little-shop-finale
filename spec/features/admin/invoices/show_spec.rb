@@ -113,4 +113,46 @@ RSpec.describe "Admin Invoice Show Page" do
       end
     end
   end
+
+  describe "Subtotal and Grand Total Revenues" do 
+    it "displays subtotal and grand total and coupon info for dollar discount" do 
+      @merchant_3 = create(:merchant)
+      @item_9 = create(:item, merchant: @merchant_3, unit_price: 2000)
+      @customer_7 = create(:customer)
+      @coupon_1 = Coupon.create!(name: "BOGO $25 OFF", discount_type: "dollar", discount: 25, coupon_code: "Juneteenthbogo", merchant_id: @merchant_3.id, status: "active")
+      @invoice_7 = create(:invoice, status: 0, customer: @customer_7, coupon_id: @coupon_1.id)
+      @invoice_item_7 = create(:invoice_item, quantity: 1, unit_price: @item_9.unit_price, item_id: @item_9.id, invoice_id: @invoice_7.id)
+      @transaction_4 = create(:transaction, result: "success", invoice: @invoice_7)
+      @transaction_5 = create(:transaction, result: "success", invoice: @invoice_7)
+      @transaction_6 = create(:transaction, result: "success", invoice: @invoice_7)
+
+      visit admin_invoice_path(@invoice_7)
+      
+      within("#invoice_totals") do 
+        expect(page).to have_content("Subtotal: $2,000.00")
+        expect(page).to have_content("Grand Total Revenue: $1,975.00")
+        expect(page).to have_content("Coupon: #{@coupon_1.name} #{@coupon_1.coupon_code}")
+      end
+    end 
+
+    it "displays subtotal and grand total and coupon info for percent discount" do 
+      @merchant_4 = create(:merchant)
+      @item_10 = create(:item, merchant: @merchant_4, unit_price: 2000)
+      @customer_8 = create(:customer)
+      @coupon_2 = Coupon.create!(name: "Everything 50% off", discount_type: "percentage", discount: 50, coupon_code: "ToyotaThon", merchant_id: @merchant_4.id, status: "active")
+      @invoice_8 = create(:invoice, status: 0, customer: @customer_8, coupon_id: @coupon_2.id)
+      @invoice_item_8 = create(:invoice_item, quantity: 1, unit_price: @item_10.unit_price, item_id: @item_10.id, invoice_id: @invoice_8.id)
+      @transaction_7 = create(:transaction, result: "success", invoice: @invoice_8)
+      @transaction_8 = create(:transaction, result: "success", invoice: @invoice_8)
+      @transaction_9 = create(:transaction, result: "success", invoice: @invoice_8)
+
+      visit admin_invoice_path(@invoice_8)
+      
+      within("#invoice_totals") do 
+        expect(page).to have_content("Subtotal: $2,000.00")
+        expect(page).to have_content("Grand Total Revenue: $1,000.00")
+        expect(page).to have_content("Coupon: #{@coupon_2.name} #{@coupon_2.coupon_code}")
+      end   
+    end
+  end  
 end
