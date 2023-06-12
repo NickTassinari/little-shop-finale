@@ -1,7 +1,7 @@
 require "httparty"
 require "json"
 
-class NagerHolidayService
+class HolidayService
 
   def self.three_holidays
     response = HTTParty.get('https://date.nager.at/api/v3/NextPublicHolidays/US')

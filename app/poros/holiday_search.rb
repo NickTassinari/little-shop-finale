@@ -1,7 +1,7 @@
 class HolidaySearch
 
   def service
-    NagerHolidayService.three_holidays
+    HolidayService.three_holidays
   end
 
   def holiday_information
