@@ -14,16 +14,10 @@
     <table style="border: 2px solid black; width: 100%; border-collapse: collapse;">
       <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %>
         <tr>
-          <th style="border: 1px solid black; width: 25%; height: 70px;">Name: </th>
-          <th style="border: 1px solid black; width: 25%; height: 70px;">Quantity: </th>
-          <th style="border: 1px solid black; width: 25%; height: 70px;">Unit Price: </th>
-          <th style="border: 1px solid black; width: 25%; height: 70px;">Status: </th>
-        </tr>
-        <tr>
-          <th id="item_name", style="border: 1px solid black; width: 25%;"><%=invoice_item.item.name%></th>
-          <th id="item_quan", style="border: 1px solid black; width: 25%;"><%= invoice_item.quantity %></th>
-          <th id="uni_price", style="border: 1px solid black; width: 25%;"><%= number_to_currency(invoice_item.unit_price&. / 100.00) %></th>
-          <th id="status", style="border: 1px solid black; width: 25%;"><%= invoice_item.status %></th>
+          <th id="item_name">Name: <%=invoice_item.item.name%></th>
+          <th id="item_quan">Quantity: <%= invoice_item.quantity %></th>
+          <th id="uni_price">Unit Price: <%= number_to_currency(invoice_item.unit_price&. / 100.00) %></th>
+          <th id="status">Status: <%= invoice_item.status %></th>
         </tr>
 </div>
     </table>
