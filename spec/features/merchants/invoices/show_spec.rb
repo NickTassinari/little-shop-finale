@@ -30,7 +30,7 @@ RSpec.describe "Merchants Invoice Show Page" do
     end 
     
     within "#uni_price" do 
-      expect(page).to have_content("$20.00")
+      expect(page).to have_content("$2,000.00")
     end 
 
     within "#status" do 
@@ -48,11 +48,11 @@ RSpec.describe "Merchants Invoice Show Page" do
   it "shows total revenue from invoice" do 
     visit "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}"
 
-    expect(page).to have_content("Total Revenue: $20.00")
+    expect(page).to have_content("Total Revenue: $2,000.00")
 
     visit "/merchants/#{@merchant.id}/invoices/#{@invoice_6.id}"
 
-    expect(page).to have_content("Total Revenue: $100.00")
+    expect(page).to have_content("Total Revenue: $10,000.00")
   end
 
   #user story 18
