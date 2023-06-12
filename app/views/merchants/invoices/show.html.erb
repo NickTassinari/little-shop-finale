@@ -13,6 +13,7 @@
   <p style="font-weight: bold; font-size: 1.25em;">Items on This Invoice</p>
       <% @merchant.items_for_this_invoice(@invoice.id).each do |invoice_item| %> 
           <p id="item_name">Name: <%=invoice_item.item.name%></p>
+          <p>Description: <%= invoice_item.item.description %></p>
           <p id="item_quan">Quantity: <%= invoice_item.quantity %></p>
           <p id="uni_price">Unit Price: <%= number_to_currency(invoice_item.unit_price) %></p>
           <p id="status">Status: <%= invoice_item.status %></p>
