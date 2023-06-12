@@ -93,8 +93,8 @@ RSpec.describe "Merchants Invoice Show Page" do
       visit merchant_invoice_path(@merchant_3, @invoice_7)
 
       within("#invoice_totals") do 
-        expect(page).to have_content("Subtotal: #{@invoice_7.total_revenue}")
-        expect(page).to have_content("Grand Total Revenue: #{@invoice_7.grand_total}")
+        expect(page).to have_content("Subtotal: $2,000.00")
+        expect(page).to have_content("Grand Total Revenue: $1,975.00")
         expect(page).to have_content("Coupon: #{@coupon_1.name}")
         expect(page).to have_content("#{@coupon_1.coupon_code}")
         expect(page).to have_link("#{@coupon_1.name} #{@coupon_1.coupon_code}")
@@ -114,8 +114,8 @@ RSpec.describe "Merchants Invoice Show Page" do
 
       visit merchant_invoice_path(@merchant_4, @invoice_8)
       within("#invoice_totals") do
-        expect(page).to have_content("Subtotal: #{@invoice_8.total_revenue}")
-        expect(page).to have_content("Grand Total Revenue: #{@invoice_8.grand_total}")
+        expect(page).to have_content("Subtotal: $2,000.00")
+        expect(page).to have_content("Grand Total Revenue: $1,000.00")
         expect(page).to have_content("Coupon: #{@coupon_2.name}")
         expect(page).to have_content("#{@coupon_2.coupon_code}")
         expect(page).to have_link("#{@coupon_2.name} #{@coupon_2.coupon_code}")
