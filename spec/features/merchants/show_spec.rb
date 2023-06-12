@@ -82,5 +82,14 @@ RSpec.describe "Merchant Dashboard Index Page" do
         expect(link_1).to appear_before(link_2)
       end
     end
+
+    it "has a link to the coupons index page" do 
+      @merchant = Merchant.create!(name: "Ricky's Used Crap")
+      @coupon_1 = Coupon.create!(name: "BOGO 25% OFF", discount_type: "percentage", discount: 25, coupon_code: "Juneteenthbogo", merchant_id: @merchant.id, status: "active")
+      visit merchant_dashboard_path(@merchant)
+      click_link "View Coupons"
+  
+      expect(current_path).to eq(merchant_coupons_path(@merchant))
+    end
   end
 end

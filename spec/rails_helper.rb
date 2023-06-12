@@ -18,7 +18,7 @@ def top_customer_data
   @transaction_3 = create(:transaction, result: "success", invoice: @invoice_2)
 
   @customer_3 = create(:customer)
-  @invoice_3 = create(:invoice, customer: @customer_3)
+  @invoice_3 = create(:invoice, customer: @customer_3, coupon_id: @coupon_1)
   @invoice_item_3 = create(:invoice_item, quantity: 1, unit_price: @item_1.unit_price, item_id: @item_1.id, invoice_id: @invoice_3.id)
   @transaction_4 = create(:transaction, result: "success", invoice: @invoice_3)
   @transaction_5 = create(:transaction, result: "success", invoice: @invoice_3)

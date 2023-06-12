@@ -1,0 +1,11 @@
+<%= form_with url: merchant_coupons_path(@merchant), local: true do |form| %>
+  <%= form.label :name, "Coupon Name" %>
+  <p><%= form.text_field :name %></p>
+  <%= form.label :coupon_code, "Coupon Code" %>
+  <p><%= form.text_field :coupon_code %></p>
+  <%= form.label :discount, "Amount" %>
+  <p><%= form.text_field :discount %></p>
+  <%= form.label :discount_type, "Percentage/Dollar"  %>
+  <p><%= form.select :discount_type, ["percentage", "dollar"] %></p>
+  <p><%= form.submit "Submit" %></p>
+<% end %>

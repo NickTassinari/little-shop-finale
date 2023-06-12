@@ -4,6 +4,7 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
+  has_many :coupons 
 
   validates :name, presence: true
 
@@ -59,5 +60,11 @@ class Merchant < ApplicationRecord
                   .joins(:invoice)
                   .order("invoices.created_at")
   end
+
+  def active_coupons
+    coupons.where(status: "active")
+  end
+
+ 
 
 end
