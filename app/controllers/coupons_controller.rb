@@ -1,7 +1,12 @@
+require_relative "../services/holiday_service.rb"
+require_relative "../poros/holiday.rb"
+require_relative "../poros/holiday_search.rb"
+
 class CouponsController < ApplicationController
   def index 
     @merchant = Merchant.find(params[:merchant_id])
     @coupons = @merchant.coupons 
+    @three_holidays = HolidaySearch.new.holiday_information[0..2]
   end
 
   def show
