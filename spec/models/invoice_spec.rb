@@ -90,6 +90,20 @@ RSpec.describe Invoice, type: :model do
 
         expect(@invoice_9.grand_total).to eq(@invoice_9.total_revenue)
       end
+
+      it "tests if coupon amount is greater than grand total and return 0" do 
+        @merchant_5 = create(:merchant)
+        @item_11 = create(:item, merchant: @merchant_5, unit_price: 2000)
+        @coupon_2 = Coupon.create!(name: "Everything 50% off", discount_type: "dollar", discount: 2500, coupon_code: "ToyotaThon", merchant_id: @merchant_5.id, status: "active")
+        @customer_9 = create(:customer)
+        @invoice_9 = create(:invoice, customer: @customer_9, coupon_id: @coupon_2.id)
+        @invoice_item_8 = create(:invoice_item, quantity: 1, unit_price: @item_11.unit_price, item_id: @item_11.id, invoice_id: @invoice_9.id)
+        @transaction_10 = create(:transaction, result: "success", invoice: @invoice_9)
+        @transaction_11 = create(:transaction, result: "success", invoice: @invoice_9)
+        @transaction_12 = create(:transaction, result: "success", invoice: @invoice_9)
+     
+        expect(@invoice_9.grand_total).to eq(0)
+      end
     end
   end
 end
