@@ -20,6 +20,7 @@ class Invoice < ApplicationRecord
   end
 
   def grand_total
+    return 0 if coupon && (total_revenue - coupon&.discount) < 0
     if coupon == nil 
       total_revenue 
     elsif coupon.discount_type == "dollar"

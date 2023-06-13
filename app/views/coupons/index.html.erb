@@ -1,3 +1,10 @@
+<div id= "three_holidays">
+  <h2>Upcoming Holidays</h2>
+  <% @three_holidays.each do |holiday| %>
+    <p><%= holiday.name %>, <%= holiday.date %></p>
+  <% end %>
+</div>
+
 <h1> Coupons: </h1>
 
 <% @coupons.each do |coupon| %>
@@ -20,11 +27,5 @@
 </div>
 
 
-<div id= "three_holidays">
-  <h2>Upcoming Holidays</h2>
-  <% @three_holidays.each do |holiday| %>
-    <p><%= holiday.name %>, <%= holiday.date %></p>
-  <% end %>
-</div>
 
 <%= link_to "Create New Coupon",  "/merchants/#{@merchant.id}/coupons/new"%>
